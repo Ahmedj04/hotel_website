@@ -4,9 +4,9 @@ function hotel() {
 
     return (
         <main>
-            <div className="bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] h-screen z-10">
+            <div className="bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] h-screen">
                 <header className="px-10 py-16 font-bold">
-                    <div className="columns-2 justify-center">
+                    <div className="columns-2">
                         <h1 className="text-2xl text-white">Engage Hotel</h1>
                         <h1 className='text-end text-white'>Menu</h1>
                     </div>
