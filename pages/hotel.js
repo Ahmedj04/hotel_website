@@ -4,7 +4,7 @@ import axios from 'axios'
 
 
 
-function hotel() {
+function Hotel() {
 
     const [allHotelDetails, setHotelDetails] = useState([]);
     const [rooms, setRooms] = useState([]);
@@ -307,4 +307,4 @@ function hotel() {
     )
 }
 
-export default hotel;
+export default Hotel;
