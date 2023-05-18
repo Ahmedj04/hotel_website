@@ -8,6 +8,7 @@ function Hotel() {
 
     const [allHotelDetails, setHotelDetails] = useState([]);
     const [rooms, setRooms] = useState([]);
+    const [button, setButton] = useState("+");
     const [showRoom, setShowRoom] = useState({
         'visible': 0,
         'index': undefined,
@@ -20,22 +21,26 @@ function Hotel() {
 
     function getHotelDetails() {
         let url = "/api/jammu-and-kashmir/srinagar/hotels/t2k0032";
-        axios.get(url).then((response) => {
-            setHotelDetails(response.data)
-            console.log("hotel details loaded succesfully")
-        }).catch((err) => {
-            alert(JSON.stringify(err))
-        })
+        axios.get(url)
+            .then((response) => {
+                setHotelDetails(response.data)
+                console.log("hotel details loaded succesfully")
+            })
+            .catch((err) => {
+                alert(JSON.stringify(err))
+            })
     }
 
     function getRoomDetails() {
         let url = "api/all_rooms_details/t2k0032";
-        axios.get(url).then((response) => {
-            setRooms(response.data.rooms);
-            console.log("room details loaded successfull")
-        }).catch((err) => {
-            alert(JSON.stringify(err))
-        })
+        axios.get(url)
+            .then((response) => {
+                setRooms(response.data.rooms);
+                console.log("room details loaded successfull")
+            })
+            .catch((err) => {
+                alert(JSON.stringify(err))
+            })
     }
 
     return (
@@ -66,28 +71,29 @@ function Hotel() {
                 <a className="text-yellow-500 tracking-wider">SEE VIDEO</a>
 
             </section>
+
             <section className="px-5 py-10">
                 <div className='text-center'>
-                    <h2 className="font-semibold text-4xl">Rooms & Suites</h2>
-                    {/* <p className='py-5 text-slate-500 tracking-wide'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p> */}
+                    <h2 className="font-semibold text-4xl pb-10">Rooms & Suites</h2>
                 </div>
 
                 {rooms?.map((room, index) => {
                     {/* console.log(room?.room_name) */ }
                     return (<React.Fragment key={index}>
-                      <div className='border border-solid border-cyan-400 border-r-8 bg-transparent flex justify-between'>
-                      <span>{room?.room_name}</span>
-                      <button
-                            className='block h-10 w-10 bg-blue-700 border border-black border-4'
-                            onClick={() => {
-                                setShowRoom(showRoom.visible === 0 ? { 'visible': 1, 'index': index } : { 'visible': 0, 'index': undefined })
-                            }}> + </button>
-                      </div>  
+                        <div className='py-3 mb-5 rounded shadow-lg flex justify-between hover:bg-slate-200'>
+                            <span className="pl-5 pt-3 text-sm font-medium">{room?.room_name}</span>
+                            <button
+                                className='h-10 w-10'
+                                onClick={() => {
+                                    setShowRoom(showRoom.visible === 0 ? { 'visible': 1, 'index': index } : { 'visible': 0, 'index': undefined })
+                                    setButton("-")
+                                }}> {button} </button>
+                        </div>
                         {
                             showRoom.visible === 1 && showRoom.index === index ?
-                                <div>
+                                <div className="py-2 rounded shadow-lg">
                                     <p className='py-5 text-slate-500 tracking-wide text-center'>{room.room_description}</p>
-                                        {Object.keys(room).includes('room_images')? <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
+                                    {Object.keys(room).includes('room_images') ? <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
                                         responsiveLayout={[
                                             {
                                                 breakpoint: 480,
@@ -116,58 +122,30 @@ function Hotel() {
                                         ]}
                                     >
                                         {room?.room_images?.map((resource, index) => {
-                                            
+
                                             return (
                                                 <Carousel.Item key={index} >
                                                     <img width="100%" style={{ height: "350px" }} className="rounded-lg" src={resource?.image_link} />
                                                 </Carousel.Item>
                                             )
                                         })}
-                                    </Carousel>: <img className='rounded-md' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
-                                    
-                                   
+                                    </Carousel> : <img className='rounded-md' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
 
                                     <div className="text-center py-10">
                                         <h2 className='text-4xl font-light'>{room?.room_type}</h2>
-                                        <p className="mt-3 text-yellow-500 text-lg">{room?.unconditional_rates?.[0]?.baserate_currency + " " + room?.unconditional_rates?.[0]?.baserate_amount}</p>
+                                        {room?.unconditional_rates?.map((resource, index) => {
+                                            return <p key={index} className= "text-gray-500 pt-2">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
+                                        })}
                                     </div>
 
                                 </div>
                                 : <></>
-
                         }
                     </React.Fragment>)
 
                 })}
-
-
-                {/* <div>
-                    <div>
-                        <img className='rounded-md' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" ></img>
-                        <div className="text-center py-10">
-                            <h2 className='text-4xl font-light'>Single Room</h2>
-                            <p className="mt-3 text-yellow-500 text-lg">90$ / PER NIGHT</p>
-                        </div>
-
-                    </div>
-                    <div>
-                        <img className='rounded-md' src="https://themewagon.github.io/sogo/images/img_2.jpg" alt="image" ></img>
-                        <div className="text-center py-10">
-                            <h2 className='text-4xl font-light'>Family Room</h2>
-                            <p className="mt-3 text-yellow-500 text-lg">120$ / PER NIGHT</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <img className='rounded-md' src="https://themewagon.github.io/sogo/images/img_3.jpg" alt="image" ></img>
-                        <div className="text-center py-10">
-                            <h2 className='text-4xl font-light'>Presidential Room</h2>
-                            <p className="mt-3 text-yellow-500 text-lg">250$ / PER NIGHT</p>
-                        </div>
-                    </div>
-
-                </div> */}
             </section>
+
             <section className="px-5 py-10 bg-slate-200">
                 <div className='text-center'>
                     <h2 className="font-semibold text-4xl">Photos</h2>
