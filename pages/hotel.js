@@ -25,7 +25,7 @@ function Hotel() {
                 console.log("hotel details loaded succesfully")
             })
             .catch((err) => {
-                alert(JSON.stringify(err))
+                console.log(JSON.stringify(err))
             })
     }
 
@@ -37,7 +37,7 @@ function Hotel() {
                 console.log("room details loaded successfull")
             })
             .catch((err) => {
-                alert(JSON.stringify(err))
+                console.log(JSON.stringify(err))
             })
     }
 
@@ -55,7 +55,7 @@ function Hotel() {
                     <h1 className='text-4xl font-bold mt-3 text-white font-bold lg:text-7xl'>A Best Place To Stay</h1>
                 </div>
             </section>
-            
+
 
             <section className="bg-slate-200 px-5 py-10 lg:-mt-14 lg:py-24 2xl:px-40">
                 <div className="md:px-10 lg:flex lg:flex-row-reverse  lg:gap-20 xl:gap-10">
@@ -78,18 +78,23 @@ function Hotel() {
                 {rooms?.map((room, index) => {
                     {/* console.log(room?.room_name) */ }
                     return (<React.Fragment key={index}>
-                        <div className={`py-3 mb-5 rounded shadow-md  flex justify-between hover:bg-slate-200 border `}>
+                        <div onClick={() => {
+                            (showRoom.index != index) ? setShowRoom({ "visible": 1, "index": index }) : setShowRoom({ "visible": 0, "index": undefined })
+                        }}
+                            className={`py-3 mb-5 rounded shadow-md  flex justify-between hover:bg-slate-200 border cursor-pointer`}>
                             <span className="pl-5 pt-3 text-sm font-medium">{room?.room_name}</span>
-                            <button
-                                className='h-10 w-10'
-                                onClick={() => {
-                                    setShowRoom(showRoom.visible === 0 ? { 'visible': 1, 'index': index } : { 'visible': 0, 'index': undefined })
-                                    setButton("-")
-                                }}> {button} </button>
+                            <button className='h-10 w-10'> {showRoom.visible === 1 && showRoom.index === index ? "-" : "+"} </button>
                         </div>
                         {
                             showRoom.visible === 1 && showRoom.index === index ?
                                 <div className="py-2 rounded shadow-lg">
+                                    <div className="flex justify-between px-5">
+                                        <p className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>{room?.room_name} - ({room?.room_type.replaceAll("_", " ")})</p>
+                                        {room?.unconditional_rates?.map((resource, index) => {
+                                            return <p key={index} className="text-lg text-gray-500 pt-2 font-medium">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
+                                        })}
+                                    </div>
+
                                     <p className='py-5 text-slate-500 tracking-wide text-center'>{room.room_description}</p>
                                     {Object.keys(room).includes('room_images') ? <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
                                         responsiveLayout={[
@@ -127,15 +132,21 @@ function Hotel() {
                                                 </Carousel.Item>
                                             )
                                         })}
-                                    </Carousel> : <img className='rounded-md' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
+                                    </Carousel> : <img className='rounded-md md:w-full' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
 
-                                    <div className="text-center py-10">
-                                        <h2 className='text-4xl font-light'>{room?.room_type}</h2>
-                                        {room?.unconditional_rates?.map((resource, index) => {
-                                            return <p key={index} className="text-gray-500 pt-2">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
+                                    <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl pt-10'>Services</h2>
+
+                                    <div className="grid grid-flow-row-dense px-5 py-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
+                                        {room?.room_facilities?.map((item, index) => {
+                                            return (
+                                                <span className='text-gray-700' key={index}>
+                                                    {/* &#10004 is code for tick mark  */}
+                                                    <span>&#10004;
+                                                        {item?.service_name.replaceAll("_", " ")}
+                                                    </span>
+                                                </span>)
                                         })}
                                     </div>
-
                                 </div>
                                 : <></>
                         }
@@ -147,7 +158,7 @@ function Hotel() {
             <section className="px-5 py-10 bg-slate-200">
                 <div className='text-center'>
                     <h2 className="font-semibold text-4xl m-4">Photos</h2>
-                   
+
                 </div>
 
                 <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
@@ -196,7 +207,7 @@ function Hotel() {
                     responsiveLayout={[
                         {
                             breakpoint: 480,
-                            cols: 1,
+                            cols: 2,
                             rows: 1,
                             gap: 10,
                             loop: true,
@@ -211,8 +222,16 @@ function Hotel() {
                             autoplay: 1000
                         },
                         {
-                            breakpoint: 1020,
+                            breakpoint: 1024,
                             cols: 2,
+                            rows: 1,
+                            gap: 10,
+                            loop: true,
+                            autoplay: 1000
+                        },
+                        {
+                            breakpoint: 1280,
+                            cols: 3,
                             rows: 1,
                             gap: 10,
                             loop: true,
@@ -235,7 +254,7 @@ function Hotel() {
             </section>
             <footer className="bg-zinc-900 ">
                 <div className='container px-5 py-10'>
-                    <div>
+                    <div className="md:flex md:justify-evenly lg:justify-evenly">
                         <div className="pb-10">
                             <ul className='text-gray-400'>
                                 <li className='py-2'>About Us</li>
@@ -253,25 +272,28 @@ function Hotel() {
                                 <li className='py-2'>Restaurant</li>
                             </ul>
                         </div>
-                        <div className="pb-10">
-                            <p className="text-gray-400">
-                                <span className='text-white'><em>Address: </em></span><br />
-                                <span className="">198 West 21th Street,</span><br />
-                                <span className=''>Suite 721 New York NY 10016</span>
-                            </p>
-                            <p className="text-gray-400 py-5">
-                                <span className='text-white'><em>Phone: </em></span><br />
-                                <span className="">(+91) 435 3533</span><br />
-                            </p>
-                            <p className="text-gray-400 ">
-                                <span className='text-white'><em>Email: </em></span><br />
-                                <span className="">info@domain.com</span><br />
-                            </p>
-                        </div>
 
+                        <div className="pb-10">
+                            <div>
+                                <div className="text-gray-400 pb-5">
+                                    <h1 className='text-white'><em>Address: </em></h1>
+                                    <span className="">{allHotelDetails?.address?.[0]?.address_street_address},</span><br />
+                                    <span className=''>{allHotelDetails?.address?.[0]?.address_city}, {allHotelDetails?.address?.[0]?.address_zipcode}</span><br />
+                                </div>
+                                {allHotelDetails?.contacts?.map((contact, index) => {
+                                    return (
+                                        (contact.contact_type == "Phone" || contact.contact_type == "Email") ?
+                                            <div key={index} className='text-gray-400 pb-5'>
+                                                <h1 className='text-white'><em>{contact?.contact_type} </em></h1>
+                                                <p className="">{contact?.contact_data}</p>
+                                            </div> : undefined
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='text-center text-gray-400'>
+                    <div className='text-center text-gray-400 md:text-center lg:text-center'>
                         <p>Copyright &copy; 2023 All rights Reserved</p>
                         <p></p>
                     </div>
