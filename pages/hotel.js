@@ -6,7 +6,6 @@ function Hotel() {
 
     const [allHotelDetails, setHotelDetails] = useState([]);
     const [rooms, setRooms] = useState([]);
-    const [button, setButton] = useState("+");
     const [showRoom, setShowRoom] = useState({
         'visible': 0,
         'index': undefined,
@@ -43,7 +42,7 @@ function Hotel() {
 
     return (
         <main>
-            <section className="bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] h-screen bg-no-repeat md:min-h-screen lg:bg-cover xl:bg-cover">
+            <section className="bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] h-fit bg-no-repeat md:max-h-screen lg:h-screen lg:bg-cover xl:bg-cover z=0">
                 <header className="px-10 py-16 font-bold">
                     <div className="columns-2">
                         <h1 className="text-2xl text-white">Engage Hotel</h1>
@@ -56,8 +55,16 @@ function Hotel() {
                 </div>
             </section>
 
+            {/* <section className='z=1 absolute mx-20 top-52 justify-center'>
+                <div className="bg-white px-96">
+                    <div className="p-5"> 
 
-            <section className="bg-slate-200 px-5 py-10 lg:py-24 2xl:px-40">
+                    </div>
+                </div>
+            </section> */}
+
+
+            <section className="bg-slate-200 px-5 py-10 lg:py-24 2xl:px-40 z=0">
                 <div className="md:px-10 lg:flex lg:flex-row-reverse  lg:gap-20 xl:gap-10">
                     <div className="pb-20 relative">
                         <img className='rounded-md' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" ></img>
@@ -91,11 +98,11 @@ function Hotel() {
                                     <div className="flex justify-between px-5">
                                         <p className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>{room?.room_name} - ({room?.room_type.replaceAll("_", " ")})</p>
                                         {room?.unconditional_rates?.map((resource, index) => {
-                                            return <p key={index} className="text-lg text-gray-500 pt-2 font-medium">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
+                                            return <p key={index} className="text-lg text-gray-500 font-medium">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
                                         })}
                                     </div>
 
-                                    <p className='py-5 text-slate-500 tracking-wide text-center'>{room.room_description}</p>
+                                    <p className='py-5 px-3 text-slate-500 tracking-wide text-center'>{room.room_description}</p>
                                     {Object.keys(room).includes('room_images') ? <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
                                         responsiveLayout={[
                                             {
@@ -134,18 +141,42 @@ function Hotel() {
                                         })}
                                     </Carousel> : <img className='rounded-md md:w-full' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
 
-                                    <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl pt-10'>Services</h2>
+                                    <div className="mt-5 pt-10 bg-slate-200 rounded-md">
+                                        <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Room Details</h2>
+                                        <div className="px-5 py-5">
+                                            <p className='text-slate-500 pb-2'>- {room.carpet_area} SQ.FT</p>
+                                            <p className='text-slate-500 pb-2'>- {room.room_capacity} Adults</p>
+                                            <p className='text-slate-500 pb-2'>{room?.views?.map((item, index) => {
+                                                return (
+                                                    <span key={index} >{index === 0 ? '-' : ','} {item?.view}  </span>
+                                                );
+                                            })}</p>
 
-                                    <div className="grid grid-flow-row-dense px-5 py-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
-                                        {room?.room_facilities?.map((item, index) => {
-                                            return (
-                                                <span className='text-gray-700' key={index}>
-                                                    {/* &#10004 is code for tick mark  */}
-                                                    <span>&#10004;
-                                                        {item?.service_name.replaceAll("_", " ")}
-                                                    </span>
-                                                </span>)
-                                        })}
+                                            {/* {Object.keys(room).includes("beds") ? room.beds.length > 1 ? <p className='text-slate-500 pb-2'>- {room.beds.length} Beds </p> : <p className='text-slate-500 pb-2'>- {room.beds.length} Bed</p> : <></>} */}
+                                            {Object.keys(room).includes("beds") ?
+                                                <p className='text-slate-500 pb-2'>- {room.beds.length} {room.beds.length > 1 ? "Beds" : "Bed"} <span> ({room?.beds?.map((item, index) => {
+                                                    return (
+                                                        <span key={index}>{index === 0 ? '' : ' , '} {item?.bed_width} * {item?.bed_length}</span>
+
+                                                    );
+                                                })}) cm</span>
+                                                </p> : <></>}
+
+                                        </div>
+                                    </div>
+                                    <div className="py-10">
+                                        <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Services</h2>
+                                        <div className="grid grid-flow-row-dense px-5 pt-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
+                                            {room?.room_facilities?.map((item, index) => {
+                                                return (
+                                                    <span className='text-gray-700' key={index}>
+                                                        {/* &#10004 is code for tick mark  */}
+                                                        <span>&#10004;
+                                                            {item?.service_name.replaceAll("_", " ")}
+                                                        </span>
+                                                    </span>)
+                                            })}
+                                        </div>
                                     </div>
                                 </div>
                                 : <></>
