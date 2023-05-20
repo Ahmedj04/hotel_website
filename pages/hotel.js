@@ -53,7 +53,7 @@ function Hotel() {
                         <h1 className='text-end text-white'>Menu</h1>
                     </div>
                 </header>
-                <div className='text-center pt-40 pb-44 lg:pt-32'>
+                <div className='text-center pt-32 pb-44 lg:pt-32'>
                     <h1 className='text-white font-extralight tracking-widest lg:text-lg lg:font-normal 2xl:font-medium'>WELCOME TO 5 STAR HOTEL</h1>
                     <h1 className='text-4xl font-bold mt-3 text-white font-bold lg:text-7xl'>A Best Place To Stay</h1>
                 </div>
