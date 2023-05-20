@@ -5,6 +5,11 @@ import BedIcon from '@mui/icons-material/Bed';
 import LandscapeIcon from '@mui/icons-material/Landscape';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
+import MenuIcon from '@mui/icons-material/Menu';
+import StarIcon from '@mui/icons-material/Star';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {faBars} from '@fortawesome/free-solid-svg-icons';
+
 
 function Hotel() {
 
@@ -46,18 +51,38 @@ function Hotel() {
 
     return (
         <main>
-            <section className="bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] h-fit bg-no-repeat md:max-h-screen lg:h-screen lg:bg-cover xl:bg-cover z=0">
+            {/* <section className="bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] h-fit bg-no-repeat md:max-h-screen lg:h-screen lg:bg-cover xl:bg-cover z=0">
                 <header className="px-10 py-16 font-bold">
                     <div className="columns-2">
                         <h1 className="text-2xl text-white">Engage Hotel</h1>
-                        <h1 className='text-end text-white'>Menu</h1>
+                        <div className='text-end'><i className='text-end text-white font-extrabold'><MenuIcon /></i></div>
+                        
                     </div>
                 </header>
                 <div className='text-center pt-32 pb-44 lg:pt-32'>
-                    <h1 className='text-white font-extralight tracking-widest lg:text-lg lg:font-normal 2xl:font-medium'>WELCOME TO 5 STAR HOTEL</h1>
+                    <h1 className='text-white font-extralight tracking-widest lg:text-lg lg:font-normal 2xl:font-medium'>WELCOME TO 5 <StarIcon /> HOTEL</h1>
                     <h1 className='text-4xl font-bold mt-3 text-white font-bold lg:text-7xl'>A Best Place To Stay</h1>
                 </div>
+            </section> */}
+            <section className="relative md:h-screen">
+                <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] bg-no-repeat bg-cover bg-center"></div>
+                    <div className="absolute inset-0 bg-black opacity-50"></div>
+                </div>
+                <header className="relative px-10 py-16 font-bold">
+                    <div className="flex justify-between items-center">
+                        <h1 className="text-xl text-white md:text-2xl">Engage Hotel</h1>
+                        {/* <span><FontAwesomeIcon color="white" icon={faBars} style={{ fontSize: '30px' }} /></span> */}
+                        <i className="text-white font-extrabold"><MenuIcon className='text-4xl md:text-5xl' sx={{fontSize:50}}/></i>
+                    </div>
+                </header>
+                <div className=" relative text-center pt-32 pb-44 md:top-72 lg:top-5 xl:top-10">
+                    <h1 className="text-white font-extralight tracking-widest lg:text-lg lg:font-normal 2xl:font-medium">WELCOME TO 5 <i><StarIcon className="text-2xl"  sx={{ color: 'orange'}}/> </i> HOTEL</h1>
+                    <h1 className="text-4xl font-bold mt-3 text-white font-bold lg:text-7xl">A Best Place To Stay</h1>
+                </div>
             </section>
+
+
 
             {/* <section className='z=1 absolute mx-20 top-52 justify-center'>
                 <div className="bg-white px-96">
