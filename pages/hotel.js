@@ -7,12 +7,15 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
+import icon from './components/GlobalData';
+
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {faBars} from '@fortawesome/free-solid-svg-icons';
 
 
 function Hotel() {
 
+    let i = 0;
     const [allHotelDetails, setHotelDetails] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [showRoom, setShowRoom] = useState({
@@ -38,7 +41,7 @@ function Hotel() {
     }
 
     function getRoomDetails() {
-        let url = "api/all_rooms_details/t2k0032";
+        let url = "api/all_rooms_details/t2k001";
         axios.get(url)
             .then((response) => {
                 setRooms(response.data.rooms);
@@ -70,15 +73,36 @@ function Hotel() {
                     <div className="absolute inset-0 bg-black opacity-50"></div>
                 </div>
                 <header className="relative px-10 py-16 font-bold">
-                    <div className="flex justify-between items-center">
-                        <h1 className="text-xl text-white md:text-2xl">Engage Hotel</h1>
-                        {/* <span><FontAwesomeIcon color="white" icon={faBars} style={{ fontSize: '30px' }} /></span> */}
-                        <i className="text-white font-extrabold"><MenuIcon className='text-4xl md:text-5xl' sx={{fontSize:50}}/></i>
+                    <div className="flex justify-between">
+                        <h1 className="text-xl text-white md:text-2xl">{allHotelDetails?.property_name}</h1>
+                        <div className='flex gap-8'>
+                            <span className='hidden md:hidden lg:block'>
+                                <ul className='lg:flex lg:gap-16 lg:text-white'>
+                                    <a href="#about"><li>About</li></a>
+                                    <a href="#rooms"><li>Rooms</li></a>
+                                    <a href="#photos"><li>Photos</li></a>
+                                    <a href="#services"><li>Services</li></a>
+                                    <a href="#reviews"><li>Reviews</li></a>
+                                    <a href="#footer"><li>Contact Us</li></a>
+                                </ul>
+                            </span>
+        
+                            <div className="relative w-20 lg:max-w-sm">
+                                <select style={{fontSize:"10px"}} className="text-xs text-white w-full relative -top-1 md:top-2 lg:-top-1 p-2 bg-transparent border rounded-md shadow-sm outline-none hover:border-indigo-600">
+                                    <option className='text-gray-500'>Language</option>
+                                    <option className='text-gray-500'>English</option>
+                                    <option className='text-gray-500'>French</option>
+                                </select>
+                            </div>
+
+                            <i className="text-white font-extrabold lg:hidden"><MenuIcon className='text-2xl md:text-5xl' sx={{ fontSize: 50 }} /></i>
+
+                        </div>
                     </div>
                 </header>
                 <div className=" relative text-center pt-32 pb-44 md:top-72 lg:top-5 xl:top-10">
-                    <h1 className="text-white font-extralight tracking-widest lg:text-lg lg:font-normal 2xl:font-medium">WELCOME TO 5 <i><StarIcon className="text-2xl"  sx={{ color: 'orange'}}/> </i> HOTEL</h1>
-                    <h1 className="text-4xl font-bold mt-3 text-white font-bold lg:text-7xl">A Best Place To Stay</h1>
+                    <h1 className="text-white font-extralight tracking-widest lg:text-lg lg:font-normal 2xl:font-medium">WELCOME TO {allHotelDetails?.star_rating} <i><StarIcon className="text-2xl" sx={{ color: 'orange' }} /> </i> HOTEL</h1>
+                    <h1 className="text-4xl font-bold mt-3 text-white font-bold lg:text-7xl">{allHotelDetails?.description_title}</h1>
                 </div>
             </section>
 
@@ -93,22 +117,22 @@ function Hotel() {
             </section> */}
 
 
-            <section className="bg-slate-200 px-5 py-10 lg:py-24 2xl:px-40 z=0">
+            <section id='about' className="bg-slate-200 px-5 py-10 lg:py-24 2xl:px-40 z=0">
                 <div className="md:px-10 lg:flex lg:flex-row-reverse  lg:gap-20 xl:gap-10">
                     <div className="pb-20 relative">
                         <img className='rounded-md' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" ></img>
                         <img className='rounded-full h-40 absolute right-0 bottom-0 border-8 lg:h-60 lg:-right-5' src="https://themewagon.github.io/sogo/images/food-1.jpg" alt="image" ></img>
                     </div>
                     <div className=" lg:w-8/12" >
-                        <h2 className="text-4xl font-semibold lg:text-5xl lg:mt-10 xl:mt-28">Welcome!</h2>
-                        <p className="text-slate-500 py-5 text-base tracking-wide lg:w-5/6 2xl:text-lg">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                        <h2 className="text-4xl font-semibold lg:text-5xl lg:mt-0 xl:mt-5">Welcome!</h2>
+                        <p className="text-slate-500 py-5 text-base tracking-wide lg:w-5/6 2xl:text-lg">{allHotelDetails?.description_body}</p>
                     </div>
                 </div>
             </section>
 
-            <section className="px-5 py-10">
+            <section id='rooms' className="px-5 py-10">
                 <div className='text-center'>
-                    <h2 className="font-semibold text-4xl pb-10">Rooms & Suites</h2>
+                    <h2 className="font-semibold text-2xl md:text-4xl pb-10">Rooms & Suites</h2>
                 </div>
 
                 {rooms?.map((room, index) => {
@@ -168,7 +192,7 @@ function Hotel() {
                                                 </Carousel.Item>
                                             )
                                         })}
-                                    </Carousel> : <img className='rounded-md md:w-full' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
+                                    </Carousel> : <img className='rounded-md md:m-auto md:w-6/12' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
 
                                     <div className="mt-5 pt-10 bg-slate-200 rounded-md">
                                         <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Room Details</h2>
@@ -193,20 +217,22 @@ function Hotel() {
 
                                         </div>
                                     </div>
-                                    <div className="py-10">
-                                        <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Services</h2>
-                                        <div className="grid grid-flow-row-dense px-5 pt-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
-                                            {room?.room_facilities?.map((item, index) => {
-                                                return (
-                                                    <span className='text-gray-700' key={index}>
-                                                        {/* &#10004 is code for tick mark  */}
-                                                        <span>&#10004;
-                                                            {item?.service_name.replaceAll("_", " ")}
+                                    {Object.keys(room).includes("room_facilities") ?
+                                        <div className="py-10">
+                                            <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Services</h2>
+                                            <div className="grid grid-flow-row-dense px-5 pt-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
+                                                {room?.room_facilities?.map((item, index) => {
+                                                    return (
+                                                        <span className='text-gray-700' key={index}>
+                                                            {/* &#10004 is code for tick mark  */}
+                                                            <span>&#10004;
+                                                                {item?.service_name.replaceAll("_", " ")}
+                                                            </span>
                                                         </span>
-                                                    </span>)
-                                            })}
-                                        </div>
-                                    </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div> : <></>}
                                 </div>
                                 : <></>
                         }
@@ -215,9 +241,9 @@ function Hotel() {
                 })}
             </section>
 
-            <section className="px-5 py-10 bg-slate-200">
+            <section id='photos' className="px-5 py-10 bg-slate-200">
                 <div className='text-center'>
-                    <h2 className="font-semibold text-4xl m-4">Photos</h2>
+                    <h2 className="font-semibold text-2xl md:text-4xl m-4">Photos</h2>
 
                 </div>
 
@@ -259,60 +285,235 @@ function Hotel() {
                 </Carousel>
 
             </section>
-            <section className="px-5 py-10">
-                <div className='text-center pb-10'>
-                    <h2 className="font-semibold text-4xl">People Says</h2>
+            <section id='services' className="px-5 py-10">
+                <div className="  ">
+                    <h2 className=" text-center font-semibold text-2xl md:text-4xl"> Property Services</h2>
+                    <div className="pl-10 py-10 grid ml-2 mb-8 grid-flow-row-dense grid-cols-5 lg:grid-cols-5 md:grid-cols-4 md:col-span-9  grid-cols-2  md:gap-3 gap-1 lg:gap-3">
+                        {allHotelDetails?.services?.map((item, idx) => {
+                            return (
+                                <React.Fragment key={idx}>
+                                    {(() => {
+                                        switch (item?.service_id) {
+                                            case 'ser001': return (
+                                                <div>
+                                                    {/*AC*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.ac}
+                                                    </span>
+                                                </div>)
+                                            case 'ser002': return (
+                                                <div>
+                                                    {/*All Inclusive Available*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.inclusive}
+                                                    </span>
+                                                </div>)
+                                            case 'ser003': return (
+                                                <div>
+                                                    {/*Child Friendly*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.childfriendly}
+                                                    </span>
+                                                </div>)
+                                            case 'ser004': return (
+                                                <div>
+                                                    {/*Golf Course*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.golf}
+                                                    </span>
+                                                </div>)
+                                            case 'ser005': return (
+                                                <div>
+                                                    {/*Airport Shuttle*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.airport}
+                                                    </span>
+                                                </div>)
+                                            case 'ser006': return (
+                                                <div>
+                                                    {/*Bar Lounge*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.bar}
+                                                    </span>
+                                                </div>)
+                                            case 'ser007': return (
+                                                <div>
+                                                    {/*Beach*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.beach}
+                                                    </span>
+                                                </div>)
+                                            case 'ser008': return (
+                                                <div>
+                                                    {/*Business Center*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.bussinesscenter}
+                                                    </span>
+                                                </div>)
+                                            case 'ser009': return (
+                                                <div>
+                                                    {/*Fitness Center*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.fitnesscenter}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0010': return (
+                                                <div>
+                                                    {/*Free Breakfast*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.breakfast}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0011': return (
+                                                <div>
+                                                    {/*Hot Tub*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.hottub}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0012': return (
+                                                <div>
+                                                    {/*Laundary Service*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.laundary}
+                                                    </span>
+                                                </div>)
+
+                                            case 'ser0013': return (
+                                                <div>
+                                                    {/*Restaurant*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.restaurant}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0014': return (
+                                                <div>
+                                                    {/*Room Service*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.roomservice}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0015': return (
+                                                <div>
+                                                    {/*Spa*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.spa}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0016': return (
+                                                <div>
+                                                    {/*Kitchen*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.kitchen}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0017': return (
+                                                <div>
+                                                    {/*Parking*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.parking}
+                                                    </span>
+                                                </div>)
+
+                                            case 'ser0018': return (
+                                                <div>
+                                                    {/*Pets Allowed*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.pets}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0019': return (
+                                                <div>
+                                                    {/*Smoke Free*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.smokefree}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0020': return (
+                                                <div>
+                                                    {/*Swimming Pool*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.pool}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0021': return (
+                                                <div>
+                                                    {/*Wheel Chair*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.wheelchair}
+                                                    </span>
+                                                </div>)
+                                            case 'ser0022': return (
+                                                <div>
+                                                    {/*Wifi Type*/}
+                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 " title={item?.local_service_name}>
+                                                        {icon?.Icons?.[i]?.wifi}
+                                                    </span>
+                                                </div>)
+
+                                            default: return (<div></div>)
+                                        }
+                                    })()}
+                                </React.Fragment>
+                            )
+                        })}</div>
                 </div>
-                <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
-                    responsiveLayout={[
-                        {
-                            breakpoint: 480,
-                            cols: 2,
-                            rows: 1,
-                            gap: 10,
-                            loop: true,
-                            autoplay: 1000
-                        },
-                        {
-                            breakpoint: 810,
-                            cols: 2,
-                            rows: 1,
-                            gap: 20,
-                            loop: true,
-                            autoplay: 1000
-                        },
-                        {
-                            breakpoint: 1024,
-                            cols: 2,
-                            rows: 1,
-                            gap: 10,
-                            loop: true,
-                            autoplay: 1000
-                        },
-                        {
-                            breakpoint: 1280,
-                            cols: 3,
-                            rows: 1,
-                            gap: 10,
-                            loop: true,
-                            autoplay: 1000
-                        },
-                    ]}
-                >
-                    {allHotelDetails?.Reviews?.map((resource, index) => {
-                        return (
-                            <Carousel.Item key={index} >
-                                <p className="text-center text-slate-500 tracking-wide">{resource?.review_content}</p>
+                <div id='reviews'>
+                    <div className='text-center pb-10'>
+                        <h2 className="font-semibold text-2xl md:text-4xl">People Says</h2>
+                    </div>
+                    <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
+                        responsiveLayout={[
+                            {
+                                breakpoint: 480,
+                                cols: 2,
+                                rows: 1,
+                                gap: 10,
+                                loop: true,
+                                autoplay: 1000
+                            },
+                            {
+                                breakpoint: 810,
+                                cols: 2,
+                                rows: 1,
+                                gap: 20,
+                                loop: true,
+                                autoplay: 1000
+                            },
+                            {
+                                breakpoint: 1024,
+                                cols: 1,
+                                rows: 1,
+                                gap: 10,
+                                loop: true,
+                                autoplay: 1000
+                            },
+                            {
+                                breakpoint: 1280,
+                                cols: 1,
+                                rows: 1,
+                                gap: 10,
+                                loop: true,
+                                autoplay: 1000
+                            },
+                        ]}
+                    >
+                        {allHotelDetails?.Reviews?.map((resource, index) => {
+                            return (
+                                <Carousel.Item key={index} >
+                                    <p className="text-center text-slate-500 tracking-wide">{resource?.review_content}</p>
 
-                                <p className='text-center text-slate-500 tracking-wide py-10'><span>__ </span>{resource?.review_author}</p>
+                                    <p className='text-center text-slate-500 tracking-wide py-10'><span>__ </span>{resource?.review_author}</p>
 
-                            </Carousel.Item>
-                        )
-                    })}
-                </Carousel>
+                                </Carousel.Item>
+                            )
+                        })}
+                    </Carousel>
+                </div>
 
             </section>
-            <footer className="bg-zinc-900 ">
+
+            <footer id="footer" className="bg-zinc-900 ">
                 <div className='container px-5 py-10'>
                     <div className="md:flex md:justify-evenly lg:justify-evenly">
                         <div className="pb-10">
