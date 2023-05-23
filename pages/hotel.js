@@ -9,10 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
 import icon from '../components/GlobalData';
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import {faBars} from '@fortawesome/free-solid-svg-icons';
-
-
 function Hotel() {
 
     let i = 0;
@@ -67,6 +63,7 @@ function Hotel() {
                     <h1 className='text-4xl font-bold mt-3 text-white font-bold lg:text-7xl'>A Best Place To Stay</h1>
                 </div>
             </section> */}
+
             <section className="relative md:h-screen">
                 <div className="absolute inset-0">
                     <div className="absolute inset-0 bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] bg-no-repeat bg-cover bg-center"></div>
@@ -77,7 +74,7 @@ function Hotel() {
                         <h1 className="text-xl text-white md:text-2xl">{allHotelDetails?.property_name}</h1>
                         <div className='flex gap-8'>
                             <span className='hidden md:hidden lg:block'>
-                                <ul className='lg:flex lg:gap-16 lg:text-white'>
+                                <ul className='lg:flex lg:gap-10 xl:gap-16 lg:text-white'>
                                     <a href="#about"><li>About</li></a>
                                     <a href="#rooms"><li>Rooms</li></a>
                                     <a href="#photos"><li>Photos</li></a>
@@ -90,8 +87,9 @@ function Hotel() {
                             <div className="relative w-20 lg:max-w-sm">
                                 <select style={{fontSize:"10px"}} className="text-xs text-white w-full relative -top-1 md:top-2 lg:-top-1 p-2 bg-transparent border rounded-md shadow-sm outline-none hover:border-indigo-600">
                                     <option className='text-gray-500'>Language</option>
-                                    <option className='text-gray-500'>English</option>
-                                    <option className='text-gray-500'>French</option>
+                                    <option className='text-gray-500 lg:text-xs'>English</option>
+                                    <option className='text-gray-500 lg:text-xs'>Arabic</option>
+                                    <option className='text-gray-500 lg:text-xs'>French</option>
                                 </select>
                             </div>
 
@@ -288,7 +286,7 @@ function Hotel() {
             <section id='services' className="px-5 py-10">
                 <div className="  ">
                     <h2 className=" text-center font-semibold text-2xl md:text-4xl"> Property Services</h2>
-                    <div className="pl-10 py-10 grid ml-2 mb-8 grid-flow-row-dense grid-cols-5 lg:grid-cols-5 md:grid-cols-4 md:col-span-9  grid-cols-2  md:gap-3 gap-1 lg:gap-3">
+                    <div className="pl-10 py-10 grid mb-8 grid-flow-row-dense grid-cols-5 lg:grid-cols-5 md:grid-cols-4 md:col-span-9  grid-cols-2  md:gap-3 gap-1 lg:gap-3">
                         {allHotelDetails?.services?.map((item, idx) => {
                             return (
                                 <React.Fragment key={idx}>
