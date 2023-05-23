@@ -7,7 +7,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
-import icon from './components/GlobalData';
+import icon from '../components/GlobalData';
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {faBars} from '@fortawesome/free-solid-svg-icons';
