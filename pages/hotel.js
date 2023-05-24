@@ -516,19 +516,16 @@ function Hotel() {
                     <div className="md:flex md:justify-evenly lg:justify-evenly">
                         <div className="pb-10">
                             <ul className='text-gray-400'>
-                                <li className='py-2'>About Us</li>
-                                <li className='py-2'>Terms & Conditions</li>
-                                <li className='py-2'>Privacy Policy</li>
-                                <li className='py-2'>Rooms</li>
+                                <a href='#rooms'><li className='py-2'>The Rooms & Suites</li></a>
+                                <a href='#about'><li className='py-2'>About Us</li></a>
+
                             </ul>
                         </div>
 
                         <div className="pb-10">
                             <ul className='text-gray-400'>
-                                <li className='py-2'>The Rooms & Suites</li>
-                                <li className='py-2'>About Us</li>
-                                <li className='py-2'>Contact Us</li>
-                                <li className='py-2'>Restaurant</li>
+                                <li className='py-2'>Terms & Conditions</li>
+                                <li className='py-2'>Privacy Policy</li>
                             </ul>
                         </div>
 
@@ -564,7 +561,7 @@ function Hotel() {
             {/*-------------------- menu bar for small and medium screen----------- */}
             {menu === true ?
                 <React.Fragment>
-                    <div className='absolute inset-0 w-full h-72 md:h-80 bg-white opacity-75'>
+                    <div className='absolute inset-0 w-full h-72 md:h-80 bg-white opacity-75 rounded-bl-3xl rounded-br-3xl  md:rounded-br-full'>
                         <i onClick={() => setMenu(false)} className='flex justify-end pt-5 pr-5 cursor-pointer hover:text-slate-500'><CloseIcon /></i>
                         <div className='text-center text-black pt-10 md:pt-12'>
                             <ul className='inline-block font-bold'>
@@ -573,7 +570,7 @@ function Hotel() {
                                 { "label": "Photos", "id": "#photos" },
                                 { "label": "Services", "id": "#services" },
                                 { "label": "Reviews", "id": "#reviews" },
-                                { "label": "Footer", "id": "#footer" }].map((item, index) => {
+                                { "label": "Contact Us", "id": "#footer" }].map((item, index) => {
                                     return (
                                         <a href={`${item?.id}`} key={index} onClick={() => setMenu(false)}><li className='pb-1 md:pb-2 hover:text-slate-500'>{item?.label}</li></a>
                                     )
@@ -583,7 +580,8 @@ function Hotel() {
                                                 <a href="#photos" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Photos</li></a>
                                                 <a href="#services" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Services</li></a>
                                                 <a href="#reviews" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Reviews</li></a>
-                                                <a href="#footer" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Contact Us</li></a> */}
+                                                <a href="#footer" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Contact Us</li></a> 
+                                                */}
                             </ul>
                         </div>
                     </div>
