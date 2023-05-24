@@ -39,7 +39,7 @@ function Hotel() {
     }
 
     function getRoomDetails() {
-        let url = "api/all_rooms_details/t2k001";
+        let url = "api/all_rooms_details/t2k0032";
         axios.get(url)
             .then((response) => {
                 setRooms(response.data.rooms);
@@ -283,8 +283,8 @@ function Hotel() {
                 </Carousel>
 
             </section>
-            <section id='services' className="px-5 py-10">
-                <div className="  ">
+            <section className="px-5 py-10">
+                <div id='services'>
                     <h2 className=" text-center font-semibold text-2xl md:text-4xl"> Property Services</h2>
                     <div className="py-10 grid grid-flow-row-dense grid-cols-5 lg:grid-cols-5 md:grid-cols-4 md:col-span-9  grid-cols-2  md:gap-3 gap-1 lg:gap-3">
                         {allHotelDetails?.services?.map((item, idx) => {
@@ -564,9 +564,9 @@ function Hotel() {
             {/*-------------------- menu bar for small and medium screen----------- */}
             {menu === true ?
                 <React.Fragment>
-                    <div className='absolute inset-0 w-full h-60 bg-white opacity-100'>
+                    <div className='absolute inset-0 w-full h-72 md:h-80 bg-white opacity-75'>
                         <i onClick={() => setMenu(false)} className='flex justify-end pt-5 pr-5 cursor-pointer hover:text-slate-500'><CloseIcon /></i>
-                        <div className='text-center text-black'>
+                        <div className='text-center text-black pt-10 md:pt-12'>
                             <ul className='inline-block font-bold'>
                                 {[{ "label": "About", "id": "#about" },
                                 { "label": "Rooms", "id": "#rooms" },
@@ -575,7 +575,7 @@ function Hotel() {
                                 { "label": "Reviews", "id": "#reviews" },
                                 { "label": "Footer", "id": "#footer" }].map((item, index) => {
                                     return (
-                                        <a href={`${item?.id}`} key={index} onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>{item?.label}</li></a>
+                                        <a href={`${item?.id}`} key={index} onClick={() => setMenu(false)}><li className='pb-1 md:pb-2 hover:text-slate-500'>{item?.label}</li></a>
                                     )
                                 })}
                                 {/*            <a href="#about" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>About</li></a>
