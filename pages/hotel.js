@@ -119,7 +119,7 @@ function Hotel() {
                 <div className="md:px-10 lg:flex lg:flex-row-reverse  lg:gap-20 xl:gap-10">
                     <div className="pb-20 relative">
                         <img className='rounded-md' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" ></img>
-                        <img className='rounded-full h-40 absolute right-0 bottom-0 border-8 lg:h-60 lg:-right-5' src="https://themewagon.github.io/sogo/images/food-1.jpg" alt="image" ></img>
+                        <img className='rounded-full h-40 md:h-60 md:-right-5 absolute right-0 bottom-0 border-8 lg:h-60 lg:-right-5 lg:bottom-20 xl:bottom-0' src="https://themewagon.github.io/sogo/images/food-1.jpg" alt="image" ></img>
                     </div>
                     <div className=" lg:w-8/12" >
                         <h2 className="text-4xl font-semibold lg:text-5xl lg:mt-0 xl:mt-5">Welcome!</h2>
@@ -127,7 +127,7 @@ function Hotel() {
                     </div>
                 </div>
             </section>
-
+            
             <section id='rooms' className="px-5 py-10">
                 <div className='text-center'>
                     <h2 className="font-semibold text-2xl md:text-4xl pb-10">Rooms & Suites</h2>
@@ -135,106 +135,107 @@ function Hotel() {
 
                 {rooms?.map((room, index) => {
                     {/* console.log(room?.room_name) */ }
-                    return (<React.Fragment key={index}>
-                        <div onClick={() => {
-                            (showRoom.index != index) ? setShowRoom({ "visible": 1, "index": index }) : setShowRoom({ "visible": 0, "index": undefined })
-                        }}
-                            className={`py-3 mb-5 rounded shadow-md  flex justify-between hover:bg-slate-200 border cursor-pointer`}>
-                            <span className="pl-5 pt-3 text-sm font-medium">{room?.room_name}</span>
-                            <button className='h-10 w-10'> {showRoom.visible === 1 && showRoom.index === index ? "-" : "+"} </button>
-                        </div>
-                        {
-                            showRoom.visible === 1 && showRoom.index === index ?
-                                <div className="py-2 rounded shadow-lg">
-                                    <div className="flex justify-between px-5">
-                                        <p className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>{room?.room_name} - ({room?.room_type.replaceAll("_", " ")})</p>
-                                        {room?.unconditional_rates?.map((resource, index) => {
-                                            return <p key={index} className="text-lg text-gray-500 font-medium">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
-                                        })}
-                                    </div>
-
-                                    <p className='py-5 px-3 text-slate-500 tracking-wide text-center'>{room.room_description}</p>
-                                    {Object.keys(room).includes('room_images') ? <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
-                                        responsiveLayout={[
-                                            {
-                                                breakpoint: 480,
-                                                cols: 1,
-                                                rows: 1,
-                                                gap: 10,
-                                                loop: true,
-                                                autoplay: 1000
-                                            },
-                                            {
-                                                breakpoint: 810,
-                                                cols: 2,
-                                                rows: 1,
-                                                gap: 10,
-                                                loop: true,
-                                                autoplay: 1000
-                                            },
-                                            {
-                                                breakpoint: 1020,
-                                                cols: 2,
-                                                rows: 1,
-                                                gap: 10,
-                                                loop: true,
-                                                autoplay: 1000
-                                            },
-                                        ]}
-                                    >
-                                        {room?.room_images?.map((resource, index) => {
-
-                                            return (
-                                                <Carousel.Item key={index} >
-                                                    <img width="100%" style={{ height: "350px" }} className="rounded-lg" src={resource?.image_link} />
-                                                </Carousel.Item>
-                                            )
-                                        })}
-                                    </Carousel> : <img className='rounded-md md:m-auto md:w-6/12' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
-
-                                    <div className="mt-5 pt-10 bg-slate-200 rounded-md">
-                                        <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Room Details</h2>
-                                        <div className="px-5 py-5 lg:flex lg:justify-around lg:py-10">
-                                            <p className='text-slate-500 pb-2'><SquareFootIcon /> &nbsp; {room.carpet_area} SQ.FT</p>
-                                            <p className='text-slate-500 pb-2'><GroupsIcon />  &nbsp; {room.room_capacity} Adults</p>
-                                            <p className='text-slate-500 pb-2'>{room?.views?.map((item, index) => {
-                                                return (
-                                                    <span key={index} >{index === 0 ? <LandscapeIcon /> : ','} &nbsp; {item?.view}  </span>
-                                                );
-                                            })}</p>
-
-                                            {/* {Object.keys(room).includes("beds") ? room.beds.length > 1 ? <p className='text-slate-500 pb-2'>- {room.beds.length} Beds </p> : <p className='text-slate-500 pb-2'>- {room.beds.length} Bed</p> : <></>} */}
-                                            {Object.keys(room).includes("beds") ?
-                                                <p className='text-slate-500 pb-2'><BedIcon /> &nbsp; {room.beds.length} {room.beds.length > 1 ? "Beds" : "Bed"} <span> ({room?.beds?.map((item, index) => {
-                                                    return (
-                                                        <span key={index}>{index === 0 ? '' : ' , '} {item?.bed_width} * {item?.bed_length}</span>
-
-                                                    );
-                                                })}) cm</span>
-                                                </p> : <></>}
-
+                    return (
+                        <React.Fragment key={index}>
+                            <div onClick={() => {
+                                (showRoom.index != index) ? setShowRoom({ "visible": 1, "index": index }) : setShowRoom({ "visible": 0, "index": undefined })
+                            }}
+                                className={`py-3 mb-5 rounded shadow-md  flex justify-between hover:bg-slate-200 border cursor-pointer`}>
+                                <span className="pl-5 pt-3 text-sm font-medium">{room?.room_name}</span>
+                                <button className='h-10 w-10'> {showRoom.visible === 1 && showRoom.index === index ? "-" : "+"} </button>
+                            </div>
+                            {
+                                showRoom.visible === 1 && showRoom.index === index ?
+                                    <div className="py-2 rounded shadow-lg">
+                                        <div className="flex justify-between px-5">
+                                            <p className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>{room?.room_name} - ({room?.room_type.replaceAll("_", " ")})</p>
+                                            {room?.unconditional_rates?.map((resource, index) => {
+                                                return <p key={index} className="text-lg text-gray-500 font-medium">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
+                                            })}
                                         </div>
-                                    </div>
-                                    {Object.keys(room).includes("room_facilities") ?
-                                        <div className="py-10">
-                                            <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Services</h2>
-                                            <div className="grid grid-flow-row-dense px-5 pt-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
-                                                {room?.room_facilities?.map((item, index) => {
+
+                                        <p className='py-5 px-3 text-slate-500 tracking-wide text-center'>{room.room_description}</p>
+                                        {Object.keys(room).includes('room_images') ? <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
+                                            responsiveLayout={[
+                                                {
+                                                    breakpoint: 480,
+                                                    cols: 1,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                                {
+                                                    breakpoint: 810,
+                                                    cols: 2,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                                {
+                                                    breakpoint: 1020,
+                                                    cols: 2,
+                                                    rows: 1,
+                                                    gap: 10,
+                                                    loop: true,
+                                                    autoplay: 1000
+                                                },
+                                            ]}
+                                        >
+                                            {room?.room_images?.map((resource, index) => {
+
+                                                return (
+                                                    <Carousel.Item key={index} >
+                                                        <img width="100%" style={{ height: "350px" }} className="rounded-lg" src={resource?.image_link} />
+                                                    </Carousel.Item>
+                                                )
+                                            })}
+                                        </Carousel> : <img className='rounded-md md:m-auto md:w-6/12' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
+
+                                        <div className="mt-5 pt-10 bg-slate-200 rounded-md">
+                                            <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Room Details</h2>
+                                            <div className="px-5 py-5 lg:flex lg:justify-around lg:py-10">
+                                                <p className='text-slate-500 pb-2'><SquareFootIcon /> &nbsp; {room.carpet_area} SQ.FT</p>
+                                                <p className='text-slate-500 pb-2'><GroupsIcon />  &nbsp; {room.room_capacity} Adults</p>
+                                                <p className='text-slate-500 pb-2'>{room?.views?.map((item, index) => {
                                                     return (
-                                                        <span className='text-gray-700' key={index}>
-                                                            {/* &#10004 is code for tick mark  */}
-                                                            <span>&#10004;
-                                                                {item?.service_name.replaceAll("_", " ")}
-                                                            </span>
-                                                        </span>
+                                                        <span key={index} >{index === 0 ? <LandscapeIcon /> : ','} &nbsp; {item?.view}  </span>
                                                     );
-                                                })}
+                                                })}</p>
+
+                                                {/* {Object.keys(room).includes("beds") ? room.beds.length > 1 ? <p className='text-slate-500 pb-2'>- {room.beds.length} Beds </p> : <p className='text-slate-500 pb-2'>- {room.beds.length} Bed</p> : <></>} */}
+                                                {Object.keys(room).includes("beds") ?
+                                                    <p className='text-slate-500 pb-2'><BedIcon /> &nbsp; {room.beds.length} {room.beds.length > 1 ? "Beds" : "Bed"} <span> ({room?.beds?.map((item, index) => {
+                                                        return (
+                                                            <span key={index}>{index === 0 ? '' : ' , '} {item?.bed_width} * {item?.bed_length}</span>
+
+                                                        );
+                                                    })}) cm</span>
+                                                    </p> : <></>}
+
                                             </div>
-                                        </div> : <></>}
-                                </div>
-                                : <></>
-                        }
-                    </React.Fragment>)
+                                        </div>
+                                        {Object.keys(room).includes("room_facilities") ?
+                                            <div className="py-10">
+                                                <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Services</h2>
+                                                <div className="grid grid-flow-row-dense px-5 pt-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
+                                                    {room?.room_facilities?.map((item, index) => {
+                                                        return (
+                                                            <span className='text-gray-700' key={index}>
+                                                                {/* &#10004 is code for tick mark  */}
+                                                                <span>&#10004;
+                                                                    {item?.service_name.replaceAll("_", " ")}
+                                                                </span>
+                                                            </span>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div> : <></>}
+                                    </div>
+                                    : <></>
+                            }
+                        </React.Fragment>)
 
                 })}
             </section>
@@ -575,7 +576,7 @@ function Hotel() {
                                         <a href={`${item?.id}`} key={index} onClick={() => setMenu(false)}><li className='pb-1 md:pb-2 hover:text-slate-500'>{item?.label}</li></a>
                                     )
                                 })}
-                                {/*            <a href="#about" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>About</li></a>
+                                {/*            <a href="#about" onClick={() => setMenu(false)}><li className='pb-1  hover:text-slate-500'>About</li></a>
                                                 <a href="#rooms" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Rooms</li></a>
                                                 <a href="#photos" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Photos</li></a>
                                                 <a href="#services" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Services</li></a>
