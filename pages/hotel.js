@@ -7,6 +7,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
+import CloseIcon from '@mui/icons-material/Close';
 import icon from '../components/GlobalData';
 
 function Hotel() {
@@ -17,7 +18,11 @@ function Hotel() {
     const [showRoom, setShowRoom] = useState({
         'visible': 0,
         'index': undefined,
-    })
+    });
+    const [menu, setMenu] = useState(false);
+    const handleMenuClick = () => {
+        setMenu(!menu);
+      };
 
     useEffect(() => {
         getHotelDetails();
@@ -69,7 +74,7 @@ function Hotel() {
                     <div className="absolute inset-0 bg-[url('https://themewagon.github.io/sogo/images/slider-7.jpg')] bg-no-repeat bg-cover bg-center"></div>
                     <div className="absolute inset-0 bg-black opacity-50"></div>
                 </div>
-                <header className="relative px-7 md:px-10 py-16 font-bold">
+                <header className="relative px-7 md:px-10 py-12 md:py-16 font-bold">
                     <div className="flex justify-between">
                         <h1 className="text-xl text-white md:text-2xl">{allHotelDetails?.property_name}</h1>
                         <div className='flex gap-5 md:gap-10'>
@@ -83,9 +88,9 @@ function Hotel() {
                                     <a href="#footer"><li>Contact Us</li></a>
                                 </ul>
                             </span>
-        
+
                             <div className="relative w-20 lg:max-w-sm">
-                                <select style={{fontSize:"10px"}} className="text-xs text-white w-full relative -top-1 md:top-2 lg:-top-1 p-2 bg-transparent border rounded-md shadow-sm outline-none hover:border-indigo-600">
+                                <select style={{ fontSize: "10px" }} className="text-xs text-white w-full relative -top-1 md:top-2 lg:-top-1 p-2 bg-transparent border rounded-md shadow-sm outline-none hover:border-indigo-600">
                                     <option className='text-gray-500'>Language</option>
                                     <option className='text-gray-500 lg:text-xs'>English</option>
                                     <option className='text-gray-500 lg:text-xs'>Arabic</option>
@@ -93,7 +98,27 @@ function Hotel() {
                                 </select>
                             </div>
 
-                            <i className="text-white lg:hidden"><MenuIcon className='text-base relative -top-1 md:text-5xl' sx={{ fontSize: 20 }} /></i>
+                            <i onClick={() => setMenu(true)} className="text-white lg:hidden"><MenuIcon className='relative -top-1  md:text-3xl md:top-2 cursor-pointer' sx={{ fontSize: 20 }} /></i>
+                            {menu === true ?
+                                <React.Fragment>
+                                    <div className='absolute inset-0 w-full h-64 bg-white opacity-100 z-4'>
+                                        <i onClick={() => setMenu(false)} className='flex justify-end pt-5 pr-5 cursor-pointer inline-block hover:text-slate-500'><CloseIcon /></i>
+                                        <div className='text-center text-black'>
+                                            <ul className='inline-block'>
+                                                <a href="#about" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-300'>About</li></a>
+                                                <a href="#rooms" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Rooms</li></a>
+                                                <a href="#photos" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Photos</li></a>
+                                                <a href="#services" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Services</li></a>
+                                                <a href="#reviews" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Reviews</li></a>
+                                                <a href="#footer" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Contact Us</li></a>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </React.Fragment>
+                                : <></>
+                            }
+                            
 
                         </div>
                     </div>
