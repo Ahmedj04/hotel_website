@@ -93,7 +93,7 @@ function Hotel() {
                                 </select>
                             </div>
 
-                            <i className="text-white lg:hidden"><MenuIcon className='text-base relative -top-1 md:text-5xl' sx={{ fontSize: 50 }} /></i>
+                            <i className="text-white lg:hidden"><MenuIcon className='text-base relative -top-1 md:text-5xl' sx={{ fontSize: 20 }} /></i>
 
                         </div>
                     </div>
