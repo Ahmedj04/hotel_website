@@ -20,9 +20,6 @@ function Hotel() {
         'index': undefined,
     });
     const [menu, setMenu] = useState(false);
-    const handleMenuClick = () => {
-        setMenu(!menu);
-      };
 
     useEffect(() => {
         getHotelDetails();
@@ -97,29 +94,7 @@ function Hotel() {
                                     <option className='text-gray-500 lg:text-xs'>French</option>
                                 </select>
                             </div>
-
-                            <i onClick={() => setMenu(true)} className="text-white lg:hidden"><MenuIcon className='relative -top-1  md:text-3xl md:top-2 cursor-pointer' sx={{ fontSize: 20 }} /></i>
-                            {menu === true ?
-                                <React.Fragment>
-                                    <div className='absolute inset-0 w-full h-64 bg-white opacity-100 z-4'>
-                                        <i onClick={() => setMenu(false)} className='flex justify-end pt-5 pr-5 cursor-pointer inline-block hover:text-slate-500'><CloseIcon /></i>
-                                        <div className='text-center text-black'>
-                                            <ul className='inline-block'>
-                                                <a href="#about" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-300'>About</li></a>
-                                                <a href="#rooms" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Rooms</li></a>
-                                                <a href="#photos" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Photos</li></a>
-                                                <a href="#services" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Services</li></a>
-                                                <a href="#reviews" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Reviews</li></a>
-                                                <a href="#footer" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Contact Us</li></a>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                </React.Fragment>
-                                : <></>
-                            }
-                            
-
+                            <i onClick={() => setMenu(true)} className="text-white lg:hidden "><MenuIcon className='relative -top-1  md:text-3xl md:top-2 cursor-pointer' sx={{ fontSize: 20 }} /></i>
                         </div>
                     </div>
                 </header>
@@ -584,6 +559,39 @@ function Hotel() {
 
                 </div>
             </footer>
+
+
+            {/*-------------------- menu bar for small and medium screen----------- */}
+            {menu === true ?
+                <React.Fragment>
+                    <div className='absolute inset-0 w-full h-60 bg-white opacity-100'>
+                        <i onClick={() => setMenu(false)} className='flex justify-end pt-5 pr-5 cursor-pointer hover:text-slate-500'><CloseIcon /></i>
+                        <div className='text-center text-black'>
+                            <ul className='inline-block font-bold'>
+                                {[{ "label": "About", "id": "#about" },
+                                { "label": "Rooms", "id": "#rooms" },
+                                { "label": "Photos", "id": "#photos" },
+                                { "label": "Services", "id": "#services" },
+                                { "label": "Reviews", "id": "#reviews" },
+                                { "label": "Footer", "id": "#footer" }].map((item, index) => {
+                                    return (
+                                        <a href={`${item?.id}`} key={index} onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>{item?.label}</li></a>
+                                    )
+                                })}
+                                {/*            <a href="#about" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>About</li></a>
+                                                <a href="#rooms" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Rooms</li></a>
+                                                <a href="#photos" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Photos</li></a>
+                                                <a href="#services" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Services</li></a>
+                                                <a href="#reviews" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Reviews</li></a>
+                                                <a href="#footer" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Contact Us</li></a> */}
+                            </ul>
+                        </div>
+                    </div>
+                </React.Fragment>
+                : <></>
+            }
+
+
 
         </main>
     )
