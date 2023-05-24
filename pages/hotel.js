@@ -72,7 +72,7 @@ function Hotel() {
                 <header className="relative px-7 md:px-10 py-16 font-bold">
                     <div className="flex justify-between">
                         <h1 className="text-xl text-white md:text-2xl">{allHotelDetails?.property_name}</h1>
-                        <div className='flex gap-8'>
+                        <div className='flex gap-5 md:gap-10'>
                             <span className='hidden md:hidden lg:block'>
                                 <ul className='lg:flex lg:gap-10 xl:gap-16 lg:text-white'>
                                     <a href="#about"><li>About</li></a>
@@ -93,7 +93,7 @@ function Hotel() {
                                 </select>
                             </div>
 
-                            <i className="text-white font-extrabold lg:hidden"><MenuIcon className='text-2xl md:text-5xl' sx={{ fontSize: 50 }} /></i>
+                            <i className="text-white lg:hidden"><MenuIcon className='text-base relative -top-1 md:text-5xl' sx={{ fontSize: 50 }} /></i>
 
                         </div>
                     </div>
