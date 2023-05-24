@@ -516,16 +516,16 @@ function Hotel() {
                     <div className="md:flex md:justify-evenly lg:justify-evenly">
                         <div className="pb-10">
                             <ul className='text-gray-400'>
-                                <a href='#rooms'><li className='py-2'>The Rooms & Suites</li></a>
-                                <a href='#about'><li className='py-2'>About Us</li></a>
+                                <a href='#rooms'><li className='py-2 hover:text-white'>The Rooms & Suites</li></a>
+                                <a href='#about'><li className='py-2 hover:text-white'>About Us</li></a>
 
                             </ul>
                         </div>
 
                         <div className="pb-10">
                             <ul className='text-gray-400'>
-                                <li className='py-2'>Terms & Conditions</li>
-                                <li className='py-2'>Privacy Policy</li>
+                                <li className='py-2 hover:text-white'>Terms & Conditions</li>
+                                <li className='py-2 hover:text-white'>Privacy Policy</li>
                             </ul>
                         </div>
 
