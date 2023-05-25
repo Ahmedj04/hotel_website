@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import Carousel from 'better-react-carousel';
 import axios from 'axios';
-import BedIcon from '@mui/icons-material/Bed';
-import LandscapeIcon from '@mui/icons-material/Landscape';
-import GroupsIcon from '@mui/icons-material/Groups';
-import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
 import CloseIcon from '@mui/icons-material/Close';
-import icon from '../components/GlobalData';
+import Modal from '@/components/NewTheme/modal';
+import Footer from '@/components/NewTheme/Footer';
+import CarousalComponent from '@/components/NewTheme/CarousalComponent';
+import Services from '@/components/NewTheme/Services';
+import Rooms from '@/components/NewTheme/Rooms';
 
 function Hotel() {
 
-    let i = 0;
     const [allHotelDetails, setHotelDetails] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [showRoom, setShowRoom] = useState({
@@ -20,7 +18,8 @@ function Hotel() {
         'index': undefined,
     });
     const [menu, setMenu] = useState(false);
-    const [showModal, setShowModal] = useState(0);
+    const [showModalTC, setShowModalTC] = useState(0);
+    const [showModalPrivacy, setShowModalPrivacy] = useState(0);
 
     useEffect(() => {
         getHotelDetails();
@@ -78,12 +77,12 @@ function Hotel() {
                         <div className='flex gap-5 md:gap-10'>
                             <span className='hidden md:hidden lg:block'>
                                 <ul className='lg:flex lg:gap-10 xl:gap-16 lg:text-white'>
-                                    <a href="#about"><li>About</li></a>
-                                    <a href="#rooms"><li>Rooms</li></a>
-                                    <a href="#photos"><li>Photos</li></a>
-                                    <a href="#services"><li>Services</li></a>
-                                    <a href="#reviews"><li>Reviews</li></a>
-                                    <a href="#footer"><li>Contact Us</li></a>
+                                    <a href="#about"><li className='hover:text-slate-300 hover:underline'>About</li></a>
+                                    <a href="#rooms"><li className='hover:text-slate-300 hover:underline'>Rooms</li></a>
+                                    <a href="#photos"><li className='hover:text-slate-300 hover:underline'>Photos</li></a>
+                                    <a href="#services"><li className='hover:text-slate-300 hover:underline'>Services</li></a>
+                                    <a href="#reviews"><li className='hover:text-slate-300 hover:underline'>Reviews</li></a>
+                                    <a href="#footer"><li className='hover:text-slate-300 hover:underline'>Contact Us</li></a>
                                 </ul>
                             </span>
 
@@ -129,487 +128,56 @@ function Hotel() {
                 </div>
             </section>
 
-            <section id='rooms' className="px-5 py-10">
-                <div className='text-center'>
-                    <h2 className="font-semibold text-2xl md:text-4xl pb-10">Rooms & Suites</h2>
-                </div>
+            <Rooms
+                rooms={rooms}
+                showRoom={showRoom}
+                setShowRoom={setShowRoom}
+            />
 
-                {rooms?.map((room, index) => {
-                    {/* console.log(room?.room_name) */ }
-                    return (
-                        <React.Fragment key={index}>
-                            <div onClick={() => {
-                                (showRoom.index != index) ? setShowRoom({ "visible": 1, "index": index }) : setShowRoom({ "visible": 0, "index": undefined })
-                            }}
-                                className={`py-3 mb-5 rounded shadow-md  flex justify-between hover:bg-slate-200 border cursor-pointer`}>
-                                <span className="pl-5 pt-3 text-sm font-medium">{room?.room_name}</span>
-                                <button className='h-10 w-10'> {showRoom.visible === 1 && showRoom.index === index ? "-" : "+"} </button>
-                            </div>
-                            {
-                                showRoom.visible === 1 && showRoom.index === index ?
-                                    <div className="py-2 rounded shadow-lg">
-                                        <div className="flex justify-between px-5">
-                                            <p className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>{room?.room_name} - ({room?.room_type.replaceAll("_", " ")})</p>
-                                            {room?.unconditional_rates?.map((resource, index) => {
-                                                return <p key={index} className="text-lg text-gray-500 font-medium">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
-                                            })}
-                                        </div>
+            <CarousalComponent
+                type='photos'
+                data={allHotelDetails?.images}
+                title='Photos'
+            />
 
-                                        <p className='py-5 px-3 text-slate-500 tracking-wide text-center'>{room.room_description}</p>
-                                        {Object.keys(room).includes('room_images') ? <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
-                                            responsiveLayout={[
-                                                {
-                                                    breakpoint: 480,
-                                                    cols: 1,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                                {
-                                                    breakpoint: 810,
-                                                    cols: 2,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                                {
-                                                    breakpoint: 1020,
-                                                    cols: 2,
-                                                    rows: 1,
-                                                    gap: 10,
-                                                    loop: true,
-                                                    autoplay: 1000
-                                                },
-                                            ]}
-                                        >
-                                            {room?.room_images?.map((resource, index) => {
+            <Services
+                allHotelDetails={allHotelDetails}
+            />
 
-                                                return (
-                                                    <Carousel.Item key={index} >
-                                                        <img width="100%" style={{ height: "350px" }} className="rounded-lg" src={resource?.image_link} />
-                                                    </Carousel.Item>
-                                                )
-                                            })}
-                                        </Carousel> : <img className='rounded-md md:m-auto md:w-6/12' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />}
+            <CarousalComponent
+                type='review'
+                data={allHotelDetails?.Reviews}
+                title='People Says'
+            />
 
-                                        <div className="mt-5 pt-10 bg-slate-200 rounded-md">
-                                            <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Room Details</h2>
-                                            <div className="px-5 py-5 lg:flex lg:justify-around lg:py-10">
-                                                <p className='text-slate-500 pb-2'><SquareFootIcon /> &nbsp; {room.carpet_area} SQ.FT</p>
-                                                <p className='text-slate-500 pb-2'><GroupsIcon />  &nbsp; {room.room_capacity} Adults</p>
-                                                <p className='text-slate-500 pb-2'>{room?.views?.map((item, index) => {
-                                                    return (
-                                                        <span key={index} >{index === 0 ? <LandscapeIcon /> : ','} &nbsp; {item?.view}  </span>
-                                                    );
-                                                })}</p>
-
-                                                {/* {Object.keys(room).includes("beds") ? room.beds.length > 1 ? <p className='text-slate-500 pb-2'>- {room.beds.length} Beds </p> : <p className='text-slate-500 pb-2'>- {room.beds.length} Bed</p> : <></>} */}
-                                                {Object.keys(room).includes("beds") ?
-                                                    <p className='text-slate-500 pb-2'><BedIcon /> &nbsp; {room.beds.length} {room.beds.length > 1 ? "Beds" : "Bed"} <span> ({room?.beds?.map((item, index) => {
-                                                        return (
-                                                            <span key={index}>{index === 0 ? '' : ' , '} {item?.bed_width} * {item?.bed_length}</span>
-
-                                                        );
-                                                    })}) cm</span>
-                                                    </p> : <></>}
-
-                                            </div>
-                                        </div>
-                                        {Object.keys(room).includes("room_facilities") ?
-                                            <div className="py-10">
-                                                <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Services</h2>
-                                                <div className="grid grid-flow-row-dense px-5 pt-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
-                                                    {room?.room_facilities?.map((item, index) => {
-                                                        return (
-                                                            <span className='text-gray-700' key={index}>
-                                                                {/* &#10004 is code for tick mark  */}
-                                                                <span>&#10004;
-                                                                    {item?.service_name.replaceAll("_", " ")}
-                                                                </span>
-                                                            </span>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div> : <></>}
-                                    </div>
-                                    : <></>
-                            }
-                        </React.Fragment>)
-
-                })}
-            </section>
-
-            <section id='photos' className="px-5 py-10 bg-slate-200">
-                <div className='text-center'>
-                    <h2 className="font-semibold text-2xl md:text-4xl m-4">Photos</h2>
-
-                </div>
-
-                <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
-                    responsiveLayout={[
-                        {
-                            breakpoint: 480,
-                            cols: 1,
-                            rows: 1,
-                            gap: 10,
-                            loop: true,
-                            autoplay: 1000
-                        },
-                        {
-                            breakpoint: 810,
-                            cols: 2,
-                            rows: 1,
-                            gap: 10,
-                            loop: true,
-                            autoplay: 1000
-                        },
-                        {
-                            breakpoint: 1020,
-                            cols: 2,
-                            rows: 1,
-                            gap: 10,
-                            loop: true,
-                            autoplay: 1000
-                        },
-                    ]}
-                >
-                    {allHotelDetails?.images?.map((resource, index) => {
-                        return (
-                            <Carousel.Item key={index} >
-                                <img width="100%" style={{ height: "350px" }} className="rounded-lg" src={resource?.image_link} />
-                            </Carousel.Item>
-                        )
-                    })}
-                </Carousel>
-
-            </section>
-
-            <section id='services' className="px-5 py-10">
-                <div>
-                    <h2 className=" text-center font-semibold text-2xl md:text-4xl"> Property Services</h2>
-                    <div className="py-10 grid grid-flow-row-dense grid-cols-5 lg:grid-cols-5 md:grid-cols-4 md:col-span-9  grid-cols-2  md:gap-3 gap-1 lg:gap-3">
-                        {allHotelDetails?.services?.map((item, idx) => {
-                            return (
-                                <React.Fragment key={idx}>
-                                    {(() => {
-                                        switch (item?.service_id) {
-                                            case 'ser001': return (
-                                                <div>
-                                                    {/*AC*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.ac}
-                                                    </span>
-                                                </div>)
-                                            case 'ser002': return (
-                                                <div>
-                                                    {/*All Inclusive Available*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.inclusive}
-                                                    </span>
-                                                </div>)
-                                            case 'ser003': return (
-                                                <div>
-                                                    {/*Child Friendly*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.childfriendly}
-                                                    </span>
-                                                </div>)
-                                            case 'ser004': return (
-                                                <div>
-                                                    {/*Golf Course*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.golf}
-                                                    </span>
-                                                </div>)
-                                            case 'ser005': return (
-                                                <div>
-                                                    {/*Airport Shuttle*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.airport}
-                                                    </span>
-                                                </div>)
-                                            case 'ser006': return (
-                                                <div>
-                                                    {/*Bar Lounge*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.bar}
-                                                    </span>
-                                                </div>)
-                                            case 'ser007': return (
-                                                <div>
-                                                    {/*Beach*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.beach}
-                                                    </span>
-                                                </div>)
-                                            case 'ser008': return (
-                                                <div>
-                                                    {/*Business Center*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.bussinesscenter}
-                                                    </span>
-                                                </div>)
-                                            case 'ser009': return (
-                                                <div>
-                                                    {/*Fitness Center*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.fitnesscenter}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0010': return (
-                                                <div>
-                                                    {/*Free Breakfast*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.breakfast}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0011': return (
-                                                <div>
-                                                    {/*Hot Tub*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.hottub}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0012': return (
-                                                <div>
-                                                    {/*Laundary Service*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.laundary}
-                                                    </span>
-                                                </div>)
-
-                                            case 'ser0013': return (
-                                                <div>
-                                                    {/*Restaurant*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.restaurant}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0014': return (
-                                                <div>
-                                                    {/*Room Service*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.roomservice}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0015': return (
-                                                <div>
-                                                    {/*Spa*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.spa}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0016': return (
-                                                <div>
-                                                    {/*Kitchen*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.kitchen}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0017': return (
-                                                <div>
-                                                    {/*Parking*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.parking}
-                                                    </span>
-                                                </div>)
-
-                                            case 'ser0018': return (
-                                                <div>
-                                                    {/*Pets Allowed*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.pets}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0019': return (
-                                                <div>
-                                                    {/*Smoke Free*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.smokefree}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0020': return (
-                                                <div>
-                                                    {/*Swimming Pool*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.pool}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0021': return (
-                                                <div>
-                                                    {/*Wheel Chair*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.wheelchair}
-                                                    </span>
-                                                </div>)
-                                            case 'ser0022': return (
-                                                <div>
-                                                    {/*Wifi Type*/}
-                                                    <span className="tooltip rounded-full hover:cursor-pointer hover:text-gray-900 text-gray-600 flex justify-center" title={item?.local_service_name}>
-                                                        {icon?.Icons?.[i]?.wifi}
-                                                    </span>
-                                                </div>)
-
-                                            default: return (<div></div>)
-                                        }
-                                    })()}
-                                </React.Fragment>
-                            )
-                        })}</div>
-                </div>
-            </section>
-
-            <section id='reviews' className='px-5 py-10 bg-slate-200'>
-                <div>
-                    <div className='text-center pb-10'>
-                        <h2 className="font-semibold text-2xl md:text-4xl">People Says</h2>
-                    </div>
-                    <Carousel cols={1} rows={1} gap={10} autoPlay={1000} loop={true}
-                        responsiveLayout={[
-                            {
-                                breakpoint: 480,
-                                cols: 2,
-                                rows: 1,
-                                gap: 10,
-                                loop: true,
-                                autoplay: 1000
-                            },
-                            {
-                                breakpoint: 810,
-                                cols: 2,
-                                rows: 1,
-                                gap: 20,
-                                loop: true,
-                                autoplay: 1000
-                            },
-                            {
-                                breakpoint: 1024,
-                                cols: 1,
-                                rows: 1,
-                                gap: 10,
-                                loop: true,
-                                autoplay: 1000
-                            },
-                            {
-                                breakpoint: 1280,
-                                cols: 1,
-                                rows: 1,
-                                gap: 10,
-                                loop: true,
-                                autoplay: 1000
-                            },
-                        ]}
-                    >
-                        {allHotelDetails?.Reviews?.map((resource, index) => {
-                            return (
-                                <Carousel.Item key={index} >
-                                    <p className="text-center text-slate-500 tracking-wide">{resource?.review_content}</p>
-
-                                    <p className='text-center text-slate-500 tracking-wide py-10'>{resource?.review_author}</p>
-
-                                </Carousel.Item>
-                            )
-                        })}
-                    </Carousel>
-                </div>
-            </section>
-
-            <footer id="footer" className="bg-zinc-900 ">
-                <div className='container px-5 py-10'>
-                    <div className="md:flex md:justify-evenly lg:justify-evenly">
-                        <div className="pb-10">
-                            <ul className='text-gray-400'>
-                                <a href='#rooms'><li className='py-2 hover:text-white'>The Rooms & Suites</li></a>
-                                <a href='#about'><li className='py-2 hover:text-white'>About Us</li></a>
-
-                            </ul>
-                        </div>
-
-                        <div className="pb-10">
-                            <ul className='text-gray-400'>
-                                <li className='py-2 hover:text-white' onClick={() => setShowModal(1)}>Terms & Conditions</li>
-                                <li className='py-2 hover:text-white'>Privacy Policy</li>
-                            </ul>
-                        </div>
-
-
-
-                        <div className="pb-10">
-                            <div>
-                                <div className="text-gray-400 pb-5">
-                                    <h1 className='text-white'><em>Address: </em></h1>
-                                    <span className="">{allHotelDetails?.address?.[0]?.address_street_address},</span><br />
-                                    <span className=''>{allHotelDetails?.address?.[0]?.address_city}, {allHotelDetails?.address?.[0]?.address_zipcode}</span><br />
-                                </div>
-                                {allHotelDetails?.contacts?.map((contact, index) => {
-                                    return (
-                                        (contact.contact_type == "Phone" || contact.contact_type == "Email") ?
-                                            <div key={index} className='text-gray-400 pb-5'>
-                                                <h1 className='text-white'><em>{contact?.contact_type} </em></h1>
-                                                <p className="">{contact?.contact_data}</p>
-                                            </div> : undefined
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='text-center text-gray-400 md:text-center lg:text-center'>
-                        <p>Copyright &copy; 2023 All rights Reserved</p>
-                        <p></p>
-                    </div>
-
-                </div>
-            </footer>
+            <Footer
+                setShowModalPrivacy={setShowModalPrivacy}
+                setShowModalTC={setShowModalTC}
+                allHotelDetails={allHotelDetails}
+            />
 
 
             {/* ------------------- modal view for footer-------------------------- */}
 
-            <div className={showModal === 1 ? "block" : "hidden"}>
-                <div className="overflow-x-hidden overflow-y-auto fixed top-0 left-0 right-0 backdrop-blur-3xl h-screen bg-black/30 md:inset-0 z-50 flex justify-center items-center sm:h-full">
-                    <div className="relative w-full max-w-2xl px-4 h-auto md:h-auto ">
-                        <div className='bg-white rounded-lg shadow relative'>
-                            <div className="flex items-start justify-between p-5 border-b rounded-t">
-                                <h3 className='text-black text-xl font-semibold'>Terms & Conditions</h3>
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setShowModal(0)
-                                    }}
-                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                                >
-                                    <svg
-                                        className="w-5 h-5"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            clipRule="evenodd"
-                                        ></path>
-                                    </svg>
-                                </button>
-                            </div>
+            <div className={showModalTC === 1 ? "block" : "hidden"}>
+                <Modal
+                    title={`Terms & Conditions`}
+                    description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}
+                    setShowModal={(e) => setShowModalTC(e)}
+                />
+            </div>
 
-                            <div className='px-5 py-2'>
-                                <p className='text-sm text-slate-500'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            </div>
-
-                            <div className="items-center p-5 border-t border-gray-200 rounded-b">
-                                <button onClick={() => setShowModal(0)} type="button" className="text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Close</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+            <div className={showModalPrivacy === 1 ? "block" : "hidden"}>
+                <Modal
+                    title={`Privacy Policy`}
+                    description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`}
+                    setShowModal={(e) => setShowModalPrivacy(e)}
+                />
             </div>
 
 
             {/*-------------------- menu bar for small and medium screen----------- */}
+
             {menu === true ?
                 <React.Fragment>
                     <div className='absolute inset-0 w-full h-72 md:h-80 bg-white opacity-75 rounded-bl-3xl rounded-br-3xl  md:rounded-br-full'>
@@ -626,7 +194,8 @@ function Hotel() {
                                         <a href={`${item?.id}`} key={index} onClick={() => setMenu(false)}><li className='pb-1 md:pb-2 hover:text-slate-500'>{item?.label}</li></a>
                                     )
                                 })}
-                                {/*            <a href="#about" onClick={() => setMenu(false)}><li className='pb-1  hover:text-slate-500'>About</li></a>
+                                {/* 
+                                                <a href="#about" onClick={() => setMenu(false)}><li className='pb-1  hover:text-slate-500'>About</li></a>
                                                 <a href="#rooms" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Rooms</li></a>
                                                 <a href="#photos" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Photos</li></a>
                                                 <a href="#services" onClick={() => setMenu(false)}><li className='pb-1 hover:text-slate-500'>Services</li></a>
@@ -639,8 +208,6 @@ function Hotel() {
                 </React.Fragment>
                 : <></>
             }
-
-
 
         </main>
     )
