@@ -20,6 +20,7 @@ function Hotel() {
         'index': undefined,
     });
     const [menu, setMenu] = useState(false);
+    const [showModal, setShowModal] = useState(0);
 
     useEffect(() => {
         getHotelDetails();
@@ -127,7 +128,7 @@ function Hotel() {
                     </div>
                 </div>
             </section>
-            
+
             <section id='rooms' className="px-5 py-10">
                 <div className='text-center'>
                     <h2 className="font-semibold text-2xl md:text-4xl pb-10">Rooms & Suites</h2>
@@ -284,8 +285,9 @@ function Hotel() {
                 </Carousel>
 
             </section>
-            <section className="px-5 py-10">
-                <div id='services'>
+
+            <section id='services' className="px-5 py-10">
+                <div>
                     <h2 className=" text-center font-semibold text-2xl md:text-4xl"> Property Services</h2>
                     <div className="py-10 grid grid-flow-row-dense grid-cols-5 lg:grid-cols-5 md:grid-cols-4 md:col-span-9  grid-cols-2  md:gap-3 gap-1 lg:gap-3">
                         {allHotelDetails?.services?.map((item, idx) => {
@@ -457,7 +459,10 @@ function Hotel() {
                             )
                         })}</div>
                 </div>
-                <div id='reviews'>
+            </section>
+
+            <section id='reviews' className='px-5 py-10 bg-slate-200'>
+                <div>
                     <div className='text-center pb-10'>
                         <h2 className="font-semibold text-2xl md:text-4xl">People Says</h2>
                     </div>
@@ -502,14 +507,13 @@ function Hotel() {
                                 <Carousel.Item key={index} >
                                     <p className="text-center text-slate-500 tracking-wide">{resource?.review_content}</p>
 
-                                    <p className='text-center text-slate-500 tracking-wide py-10'><span>__ </span>{resource?.review_author}</p>
+                                    <p className='text-center text-slate-500 tracking-wide py-10'>{resource?.review_author}</p>
 
                                 </Carousel.Item>
                             )
                         })}
                     </Carousel>
                 </div>
-
             </section>
 
             <footer id="footer" className="bg-zinc-900 ">
@@ -525,10 +529,12 @@ function Hotel() {
 
                         <div className="pb-10">
                             <ul className='text-gray-400'>
-                                <li className='py-2 hover:text-white'>Terms & Conditions</li>
+                                <li className='py-2 hover:text-white' onClick={() => setShowModal(1)}>Terms & Conditions</li>
                                 <li className='py-2 hover:text-white'>Privacy Policy</li>
                             </ul>
                         </div>
+
+
 
                         <div className="pb-10">
                             <div>
@@ -557,6 +563,50 @@ function Hotel() {
 
                 </div>
             </footer>
+
+
+            {/* ------------------- modal view for footer-------------------------- */}
+
+            <div className={showModal === 1 ? "block" : "hidden"}>
+                <div className="overflow-x-hidden overflow-y-auto fixed top-0 left-0 right-0 backdrop-blur-3xl h-screen bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div className="relative w-full max-w-2xl px-4 h-full md:h-auto h-auto">
+                        <div className='bg-white rounded-lg shadow relative'>
+                            <div className="flex items-start justify-between p-5 border-b rounded-t">
+                                <h3 className='text-black text-xl font-semibold'>Terms & Conditions</h3>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowModal(0)
+                                    }}
+                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                                >
+                                    <svg
+                                        className="w-5 h-5"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        ></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div className='px-5 pb-5'>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+
+                            <div className="items-center p-6 border-t border-gray-200 rounded-b">
+                                <button onClick={() => setShowModal(0)} type="button" className="text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             {/*-------------------- menu bar for small and medium screen----------- */}
