@@ -568,8 +568,8 @@ function Hotel() {
             {/* ------------------- modal view for footer-------------------------- */}
 
             <div className={showModal === 1 ? "block" : "hidden"}>
-                <div className="overflow-x-hidden overflow-y-auto fixed top-0 left-0 right-0 backdrop-blur-3xl h-screen bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
-                    <div className="relative w-full max-w-2xl px-4 h-full md:h-auto h-auto">
+                <div className="overflow-x-hidden overflow-y-auto fixed top-0 left-0 right-0 backdrop-blur-3xl h-screen bg-black/30 md:inset-0 z-50 flex justify-center items-center sm:h-full">
+                    <div className="relative w-full max-w-2xl px-4 h-auto md:h-auto ">
                         <div className='bg-white rounded-lg shadow relative'>
                             <div className="flex items-start justify-between p-5 border-b rounded-t">
                                 <h3 className='text-black text-xl font-semibold'>Terms & Conditions</h3>
@@ -595,11 +595,11 @@ function Hotel() {
                                 </button>
                             </div>
 
-                            <div className='px-5 pb-5'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <div className='px-5 py-2'>
+                                <p className='text-sm text-slate-500'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                             </div>
 
-                            <div className="items-center p-6 border-t border-gray-200 rounded-b">
+                            <div className="items-center p-5 border-t border-gray-200 rounded-b">
                                 <button onClick={() => setShowModal(0)} type="button" className="text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Close</button>
                             </div>
 
