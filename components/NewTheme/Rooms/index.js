@@ -20,7 +20,7 @@ function Rooms({ rooms, showRoom, setShowRoom, roomDetailLoader }) {
             <div className='text-center'>
                 <h2 className="font-semibold text-2xl md:text-4xl pb-10">Rooms & Suites </h2>
             </div>
-            <div className='md:flex md:gap-5'>
+            {roomDetailLoader === 0 ?<Loader size={`w-11/12 h-24 py-3 mb-5 `} /> : <div className='md:flex md:gap-5'>
                 {rooms?.map((room, index) => {
                     return (
                         <div className='md:w-1/2' key={index}>
@@ -76,7 +76,8 @@ function Rooms({ rooms, showRoom, setShowRoom, roomDetailLoader }) {
                         </div>
                     );
                 })}
-            </div> 
+            </div> }
+            
             {selectedRoom.length != 0 ?     
              <div className="hidden md:block lg:block md:-mx-auto md:mt-8 md:pt-5 md:mb-10 rounded shadow-lg bg-slate-100">
                 <div className="flex justify-between px-5">
