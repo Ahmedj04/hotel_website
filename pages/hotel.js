@@ -30,7 +30,7 @@ function Hotel() {
     }, []);
 
     function getHotelDetails() {
-        let url = "/api/jammu-and-kashmir/srinagar/hotels/t2k0032";
+        let url = "/api/jammu-and-kashmir/srinagar/hotels/t2k001";
         axios.get(url)
             .then((response) => {
                 setHotelDetails(response.data)
@@ -44,7 +44,7 @@ function Hotel() {
     }
 
     function getRoomDetails() {
-        let url = "api/all_rooms_details/t2k0032";
+        let url = "api/all_rooms_details/t2k001";
         axios.get(url)
             .then((response) => {
                 setRooms(response.data.rooms);

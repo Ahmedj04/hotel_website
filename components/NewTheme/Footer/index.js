@@ -28,18 +28,20 @@ function Footer({ setShowModalPrivacy, setShowModalTC, allHotelDetails, hotelDet
                             <div className="text-gray-400 pb-5">
                                 <h1 className='text-white'><em>Address: </em></h1>
                                 {hotelDetailLoader === 0 ?
-                                    <><Loader size={`w-5/12 h-8`} /> <br /> <Loader size={`w-5/12 h-8`} /></> :
+                                    <><Loader size={`w-5/12 h-8 md:w-36`} /> <br /> <Loader size={`w-5/12 h-8 md:w-36`} /></> :
                                     <><span className="">{allHotelDetails?.address?.[0]?.address_street_address},</span><br /></>
 
                                 }
                                 <span className=''>{allHotelDetails?.address?.[0]?.address_city},{allHotelDetails?.address?.[0]?.address_zipcode}</span><br />
                             </div>
+
                             {allHotelDetails?.contacts?.map((contact, index) => {
                                 return (
                                     (contact.contact_type == "Phone" || contact.contact_type == "Email") ?
                                         <div key={index} className='text-gray-400 pb-5'>
-                                            <h1 className='text-white'><em>{contact?.contact_type} </em></h1>
-                                            <p className="">{contact?.contact_data}</p>
+                                        <h1 className='text-white'><em>{contact?.contact_type} </em></h1>
+                                        <p className="">{contact?.contact_data}</p>                                            
+
                                         </div> : undefined
                                 );
                             })}
