@@ -1,9 +1,9 @@
 import React from 'react'
 
-function RoomServices({room}) {
+function RoomServices({room, lang}) {
     return (
         <div className="py-10">
-            <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>Services</h2>
+            <h2 className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>{lang?.services}</h2>
             <div className="grid grid-flow-row-dense px-5 pt-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
                 {room?.room_facilities?.map((item, index) => {
                     return (

@@ -8,7 +8,7 @@ import Services from '@/components/NewTheme/Services';
 import Rooms from '@/components/NewTheme/Rooms';
 import About from '@/components/NewTheme/About';
 import Home from '@/components/NewTheme/Home';
-import Loader from '@/components/NewTheme/Loaders/Loader';
+import { english, arabic, french } from '@/components/Language/NewTheme';
 
 function Hotel() {
 
@@ -21,16 +21,31 @@ function Hotel() {
     const [menu, setMenu] = useState(false);
     const [showModalTC, setShowModalTC] = useState(0);
     const [showModalPrivacy, setShowModalPrivacy] = useState(0);
-    const [hotelDetailLoader, setHotelDetailLoader] = useState(0)
-    const [roomDetailLoader, setRoomDetailLoader] = useState(0)
+    const [hotelDetailLoader, setHotelDetailLoader] = useState(0);
+    const [roomDetailLoader, setRoomDetailLoader] = useState(0);
+    const [lang, setLang] = useState(english);
 
     useEffect(() => {
+        getLanguage();
         getHotelDetails();
-        getRoomDetails();
+        getRoomDetails();    
     }, []);
 
+    function getLanguage(){
+        let language = localStorage.getItem("lang");
+        if(language === null){
+            setLang(english)
+        }else if(language === 'english'){
+            setLang(english)
+        }else if(language === 'french'){
+            setLang(french)
+        }else{
+            setLang(arabic)
+        }
+    }
+
     function getHotelDetails() {
-        let url = "/api/jammu-and-kashmir/srinagar/hotels/t2k001";
+        let url = "/api/jammu-and-kashmir/srinagar/hotels/t2k0032";
         axios.get(url)
             .then((response) => {
                 setHotelDetails(response.data)
@@ -44,7 +59,7 @@ function Hotel() {
     }
 
     function getRoomDetails() {
-        let url = "api/all_rooms_details/t2k001";
+        let url = "api/all_rooms_details/t2k0032";
         axios.get(url)
             .then((response) => {
                 setRooms(response.data.rooms);
@@ -62,6 +77,8 @@ function Hotel() {
             <Home
                 allHotelDetails={allHotelDetails}
                 setMenu={setMenu}
+                lang={lang}
+                setLang={setLang}
                 hotelDetailLoader={hotelDetailLoader}
             />
 
@@ -76,6 +93,7 @@ function Hotel() {
             <About
                 allHotelDetails={allHotelDetails}
                 hotelDetailLoader={hotelDetailLoader}
+                lang={lang}
             />
 
             <Rooms
@@ -83,6 +101,7 @@ function Hotel() {
                 showRoom={showRoom}
                 setShowRoom={setShowRoom}
                 roomDetailLoader={roomDetailLoader}
+                lang={lang}
             />
 
 
