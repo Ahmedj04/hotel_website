@@ -22,8 +22,9 @@ export default {
     aboutUs:"About Us",
     termsConditions:"Terms & Conditions",
     privacyPolicy:"Privacy Policy",
-    address:"Address",
+    address:"Address:",
     phone:"Phone",
     email:"Email",
+    allRightsReserved:"All Rights Reserved"
 
 }

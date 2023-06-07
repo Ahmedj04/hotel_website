@@ -1,23 +1,27 @@
 import React from 'react'
 import Loader from '../Loaders/Loader';
 
-function Footer({ setShowModalPrivacy, setShowModalTC, allHotelDetails, hotelDetailLoader }) {
+function Footer({ setShowModalPrivacy, setShowModalTC, allHotelDetails, hotelDetailLoader, lang }) {
+    
+    let date = new Date();
+
+
     return (
         <footer id="footer" className="bg-zinc-900 ">
             <div className='container px-5 py-10'>
                 <div className="md:flex md:justify-evenly lg:justify-evenly">
                     <div className="pb-10">
                         <ul className='text-gray-400'>
-                            <a href='#rooms'><li className='py-2 hover:text-white'>The Rooms & Suites</li></a>
-                            <a href='#about'><li className='py-2 hover:text-white'>About Us</li></a>
+                            <a href='#rooms'><li className='py-2 hover:text-white'>{lang?.theRoomsSuites}</li></a>
+                            <a href='#about'><li className='py-2 hover:text-white'>{lang?.aboutUs}</li></a>
 
                         </ul>
                     </div>
 
                     <div className="pb-10">
                         <ul className='text-gray-400'>
-                            <li className='py-2 hover:text-white cursor-pointer' onClick={() => setShowModalTC(1)}>Terms & Conditions</li>
-                            <li className='py-2 hover:text-white cursor-pointer' onClick={() => setShowModalPrivacy(1)}>Privacy Policy</li>
+                            <li className='py-2 hover:text-white cursor-pointer' onClick={() => setShowModalTC(1)}>{lang?.termsConditions}</li>
+                            <li className='py-2 hover:text-white cursor-pointer' onClick={() => setShowModalPrivacy(1)}>{lang?.privacyPolicy}</li>
                         </ul>
                     </div>
 
@@ -26,7 +30,7 @@ function Footer({ setShowModalPrivacy, setShowModalTC, allHotelDetails, hotelDet
                     <div className="pb-10">
                         <div>
                             <div className="text-gray-400 pb-5">
-                                <h1 className='text-white'><em>Address: </em></h1>
+                                <h1 className='text-white'><em>{lang?.address}</em></h1>
                                 {hotelDetailLoader === 0 ?
                                     <><Loader size={`w-5/12 h-8 md:w-36`} /> <br /> <Loader size={`w-5/12 h-8 md:w-36`} /></> :
                                     <><span className="">{allHotelDetails?.address?.[0]?.address_street_address},</span><br /></>
@@ -40,7 +44,7 @@ function Footer({ setShowModalPrivacy, setShowModalTC, allHotelDetails, hotelDet
                                     (contact.contact_type == "Phone" || contact.contact_type == "Email") ?
                                         <div key={index} className='text-gray-400 pb-5'>
                                         <h1 className='text-white'><em>{contact?.contact_type} </em></h1>
-                                        <p className="">{contact?.contact_data}</p>                                            
+                                        <p>{contact?.contact_data}</p>                                            
 
                                         </div> : undefined
                                 );
@@ -50,7 +54,7 @@ function Footer({ setShowModalPrivacy, setShowModalTC, allHotelDetails, hotelDet
                 </div>
 
                 <div className='text-center text-gray-400 md:text-center lg:text-center'>
-                    <p>Copyright &copy; 2023 All rights Reserved</p>
+                    <p>{lang?.copyright} &copy; {date.getFullYear()} {lang?.allRightsReserved}</p>
                     <p></p>
                 </div>
 

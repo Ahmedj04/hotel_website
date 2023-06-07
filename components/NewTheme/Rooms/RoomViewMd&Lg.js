@@ -1,11 +1,14 @@
 import React from 'react'
 import Carousel from 'better-react-carousel';
+import RoomDetails from './RoomDetails';
+import RoomServices from './RoomServices';
+import CarousalComponent from '../CarousalComponent';
 
 
-function RoomCarousal({ rooms, showRoom,setShowRoom , selectedRoom ,setSelectedRoom}) {
+function RoomViewMdAndLg({ rooms, showRoom, setShowRoom, selectedRoom, setSelectedRoom,lang }) {
     return (
         <div className='hidden md:block lg:block'>
-            <Carousel cols={3} rows={1} gap={0}  loop={false}
+            <Carousel cols={3} rows={1} gap={0} loop={false}
                 responsiveLayout={[
                     {
                         breakpoint: 640,
@@ -66,8 +69,41 @@ function RoomCarousal({ rooms, showRoom,setShowRoom , selectedRoom ,setSelectedR
                     )
                 })}
             </Carousel>
+            
+            {selectedRoom.length != 0 ? <div className="hidden md:block lg:block md:-mx-auto md:mt-8 md:pt-5 md:mb-10 rounded shadow-lg bg-slate-100">
+                <div className="flex justify-between px-5">
+                    <p className=' text-slate-500 font-semibold tracking-wide text-center text-2xl'>{selectedRoom?.room_name} - ({selectedRoom?.room_type?.replaceAll("_", " ")})</p>
+                    {selectedRoom?.unconditional_rates?.map((resource, index) => {
+                        return <p key={index} className="text-lg text-gray-500 font-medium">{resource?.baserate_currency + " " + resource?.baserate_amount}</p>
+                    })}
+                </div>
+
+                <p className='py-5 px-3 text-slate-500 tracking-wide text-center'>{selectedRoom.room_description}</p>
+                {Object.keys(selectedRoom).includes('room_images') ?
+                    <CarousalComponent
+                        id="roomPhotos"
+                        type='room'
+                        data={selectedRoom?.room_images}
+                    />
+                    : <img className='rounded-md md:m-auto md:w-5/12' src="https://themewagon.github.io/sogo/images/slider-3.jpg" alt="image" />
+                }
+
+                <RoomDetails
+                    room={selectedRoom}
+                    lang={lang}
+                />
+
+                {Object.keys(selectedRoom).includes("room_facilities") ?
+                    <RoomServices
+                        room={selectedRoom}
+                        lang={lang}
+                    />
+                    : <></>}
+            </div> : <></>
+            }
         </div>
+
     )
 }
 
-export default RoomCarousal
+export default RoomViewMdAndLg;

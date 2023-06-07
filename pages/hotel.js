@@ -109,20 +109,21 @@ function Hotel() {
                 id="photos"
                 type='photos'
                 data={allHotelDetails?.images}
-                title='Photos'
+                title={lang?.photos}
                 hotelDetailLoader={hotelDetailLoader}
             />
 
             <Services
                 allHotelDetails={allHotelDetails}
                 hotelDetailLoader={hotelDetailLoader}
+                lang={lang}
             />
 
             <CarousalComponent
                 id="reviews"
                 type='review'
                 data={allHotelDetails?.Reviews}
-                title='People Says'
+                title={lang?.peopleSays}
                 hotelDetailLoader={hotelDetailLoader}
             />
 
@@ -131,6 +132,7 @@ function Hotel() {
                 setShowModalTC={setShowModalTC}
                 allHotelDetails={allHotelDetails}
                 hotelDetailLoader={hotelDetailLoader}
+                lang={lang}
             />
 
             {/* ------------------- modal view for footer-------------------------- */}
@@ -159,12 +161,12 @@ function Hotel() {
                         <i onClick={() => setMenu(false)} className='flex justify-end pt-5 pr-5 cursor-pointer hover:text-slate-500'><CloseIcon /></i>
                         <div className='text-center text-black pt-10 md:pt-12'>
                             <ul className='inline-block font-bold'>
-                                {[{ "label": "About", "id": "#about" },
-                                { "label": "Rooms", "id": "#rooms" },
-                                { "label": "Photos", "id": "#photos" },
-                                { "label": "Services", "id": "#services" },
-                                { "label": "Reviews", "id": "#reviews" },
-                                { "label": "Contact Us", "id": "#footer" }
+                                {[{ "label": lang?.about, "id": "#about" },
+                                { "label": lang?.rooms, "id": "#rooms" },
+                                { "label": lang?.photos, "id": "#photos" },
+                                { "label": lang?.services, "id": "#services" },
+                                { "label": lang?.reviews, "id": "#reviews" },
+                                { "label": lang?.contactUs, "id": "#footer" }
                                 ].map((item, index) => {
                                     return (
                                         <a href={`${item?.id}`} key={index} onClick={() => setMenu(false)}><li className='pb-1 md:pb-2 hover:text-slate-500'>{item?.label}</li></a>

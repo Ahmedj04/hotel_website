@@ -21,8 +21,11 @@ export default {
     aboutUs:"À propos de nous",
     termsConditions:"Termes et Conditions",
     privacyPolicy:"Politique de confidentialité",
-    address:"Adresse",
+    address:"Adresse:",
     phone:"Téléphone",
     email:"E-mail",
+    copyright:"droits d'auteur",
+    allRightsReserved:"Tous les droits sont réservés"
+
 
 }

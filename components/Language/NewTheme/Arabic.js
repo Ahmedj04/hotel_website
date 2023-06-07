@@ -21,8 +21,11 @@ export default {
     aboutUs:"معلومات عنا",
     termsConditions:"الأحكام والشروط",
     privacyPolicy:"سياسة الخصوصية",
-    address:"عنوان",
+    address:":عنوان",
     phone:"هاتف",
     email:"بريد إلكتروني",
+    copyright:"حقوق النشر",
+    allRightsReserved:"كل الحقوق محفوظة",
+
 
 }
