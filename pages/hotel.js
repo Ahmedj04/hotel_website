@@ -77,6 +77,7 @@ function Hotel() {
             <Home
                 allHotelDetails={allHotelDetails}
                 setMenu={setMenu}
+                menu={menu}
                 lang={lang}
                 setLang={setLang}
                 hotelDetailLoader={hotelDetailLoader}

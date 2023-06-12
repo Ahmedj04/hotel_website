@@ -3,7 +3,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Header from './Header';
 import Loader from '../Loaders/Loader'
 
-function Home({ allHotelDetails, setMenu, hotelDetailLoader, lang, setLang }) {
+function Home({ allHotelDetails, menu, setMenu, hotelDetailLoader, lang, setLang }) {
     return (
         <section className="relative h-screen md:h-screen">
             <div className="absolute inset-0">
@@ -15,6 +15,7 @@ function Home({ allHotelDetails, setMenu, hotelDetailLoader, lang, setLang }) {
             <Header
                 allHotelDetails={allHotelDetails}
                 setMenu={setMenu}
+                menu={menu}
                 hotelDetailLoader={hotelDetailLoader}
                 lang={lang}
                 setLang={setLang}

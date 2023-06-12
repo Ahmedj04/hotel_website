@@ -3,7 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Loader from '../Loaders/Loader'
 import { english, arabic, french } from '@/components/Language/NewTheme';
 
-function Header({ allHotelDetails, setMenu, hotelDetailLoader, lang, setLang }) {
+function Header({ allHotelDetails, menu, setMenu, hotelDetailLoader, lang, setLang }) {
     return (
         <header className="relative px-7 md:px-10 py-12 md:py-16 font-bold">
             <div className="flex justify-between">
@@ -43,7 +43,7 @@ function Header({ allHotelDetails, setMenu, hotelDetailLoader, lang, setLang }) 
                             <option className='text-gray-500 lg:text-xs' value={'french'}>Français</option>
                         </select>
                     </div>
-                    <i onClick={() => setMenu(true)} className="text-white lg:hidden "><MenuIcon className='relative -top-1  md:text-3xl md:top-2 cursor-pointer' sx={{ fontSize: 20 }} /></i>
+                    <i onClick={() => setMenu(true)} className={`text-white ${menu === true ? 'hidden' : 'block' }  lg:hidden `}><MenuIcon className='relative -top-1  md:text-3xl md:top-2 cursor-pointer' sx={{ fontSize: 20 }} /></i>
                 </div>
             </div>
         </header>
