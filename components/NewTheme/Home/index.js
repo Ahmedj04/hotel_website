@@ -33,7 +33,7 @@ function Home({ allHotelDetails, menu, setMenu, hotelDetailLoader, lang, setLang
                 @media (min-width: 340px) and (max-width:390px) {
                     .contentBox {
                         position:relative;
-                        top: 4rem;
+                        top: 3rem;
                     }
                 }
                 @media (min-width: 390px) and (max-width:450px) {
