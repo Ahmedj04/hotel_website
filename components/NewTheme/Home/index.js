@@ -30,6 +30,12 @@ function Home({ allHotelDetails, menu, setMenu, hotelDetailLoader, lang, setLang
 
             <style jsx>
                 {`
+                @media (min-width: 340px) and (max-width:390px) {
+                    .contentBox {
+                        position:relative;
+                        top: 4rem;
+                    }
+                }
                 @media (min-width: 390px) and (max-width:450px) {
                     .contentBox {
                         position:relative;
@@ -40,12 +46,6 @@ function Home({ allHotelDetails, menu, setMenu, hotelDetailLoader, lang, setLang
                     .contentBox {
                         position:relative;
                         top: 4rem;
-                    }
-                }
-                @media (min-height: 760px) and (max-height:1000px) {
-                    .contentBox {
-                        position:relative;
-                        top: 10rem;
                     }
                 }
                 @media (min-width: 765px) and (max-width:770px) {
