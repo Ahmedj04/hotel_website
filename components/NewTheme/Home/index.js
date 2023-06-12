@@ -42,7 +42,7 @@ function Home({ allHotelDetails, menu, setMenu, hotelDetailLoader, lang, setLang
                         top: 4rem;
                     }
                 }
-                @media (min-height: 760px) and (max-height:780px) {
+                @media (min-height: 760px) and (max-height:800px) {
                     .contentBox {
                         position:relative;
                         top: 5rem;
