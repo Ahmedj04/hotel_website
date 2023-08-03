@@ -10,6 +10,7 @@ import About from '@/components/NewTheme/About';
 import Home from '@/components/NewTheme/Home';
 import { english, arabic, french } from '@/components/Language/NewTheme';
 
+
 function Hotel() {
 
     const [allHotelDetails, setHotelDetails] = useState([]);
